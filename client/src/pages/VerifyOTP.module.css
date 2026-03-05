@@ -1,0 +1,286 @@
+/* src/pages/VerifyOTP.module.css */
+
+.otpContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+  padding: 20px;
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+}
+
+.otpBox {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(30, 60, 114, 0.15);
+  padding: 40px;
+  max-width: 500px;  /* ← نفس Login */
+  width: 100%;
+  border: 1px solid rgba(30, 60, 114, 0.1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.iconContainer {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.iconContainer .logo {
+  width: 70%;
+  height: 20%;
+  object-fit: contain;
+}
+
+.starIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 50%;
+  font-size: 40px;
+  box-shadow: 0 4px 16px rgba(30, 60, 114, 0.3);
+}
+
+.title {
+  font-size: 28px;  /* ← نفس Login */
+  font-weight: 700;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.7;  /* ← نفس Login */
+}
+
+.phoneNumber {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e3c72;
+  text-align: center;
+  margin-bottom: 32px;
+  direction: ltr;
+}
+
+.form {
+  margin-bottom: 24px;
+}
+
+.otpInputs {
+  direction: ltr;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.otpInput {
+  width: 70px;
+  height: 70px;
+  border: 3px solid #2a5298;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  color: #1e3c72;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.otpInput:focus {
+  outline: none;
+  border-color: #1e3c72;
+  box-shadow: 0 0 0 4px rgba(30, 60, 114, 0.15);  /* ← نفس Login */
+  background: white;
+  transform: scale(1.05);
+}
+
+.errorText {
+  color: #f44336;
+  font-size: 14px;  /* ← نفس Login */
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.robotCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+}
+
+.robotCheck input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #1e3c72;
+}
+
+.robotCheck label {
+  font-size: 15px;
+  color: #666;
+  cursor: pointer;
+  user-select: none;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 16px;  /* ← نفس Login */
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;  /* ← نفس Login */
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Cairo', sans-serif;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  text-transform: uppercase;  /* ← نفس Login */
+  letter-spacing: 1px;  /* ← نفس Login */
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
+}
+
+.submitBtn:active {
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.resendSection {
+  text-align: center;
+  margin: 28px 0;  /* ← نفس Login divider */
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.timerText {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+.resendBtn {
+  background: transparent;
+  border: 2px solid #1e3c72;
+  color: #1e3c72;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.resendBtn:hover {
+  background: #1e3c72;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.helpText {
+  text-align: center;
+  font-size: 14px;  /* ← نفس Login */
+  color: #888;
+  margin: 0;
+  padding-top: 12px;  /* ← نفس Login */
+  border-top: 1px solid #eee;
+  font-weight: 500;  /* ← نفس Login */
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .otpBox {
+    padding: 32px 24px;  /* ← نفس Login */
+    margin: 10px;  /* ← نفس Login */
+  }
+
+  .title {
+    font-size: 24px;  /* ← نفس Login */
+  }
+
+  .subtitle {
+    font-size: 14px;  /* ← نفس Login */
+  }
+
+  .otpInput {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+
+  .otpInputs {
+    gap: 8px;
+  }
+
+  .starIcon {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+  }
+
+  .submitBtn {
+    font-size: 16px;  /* ← نفس Login */
+    padding: 14px;  /* ← نفس Login */
+  }
+}
+
+@media (max-width: 480px) {
+  .otpBox {
+    padding: 28px 20px;  /* ← نفس Login */
+  }
+
+  .title {
+    font-size: 22px;  /* ← نفس Login */
+  }
+
+  .otpInput {
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+  }
+
+  .otpInputs {
+    gap: 8px;
+  }
+}

@@ -1,0 +1,383 @@
+/* ReviewsPending.css */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+.rp-wrapper {
+  max-width: 860px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+  direction: rtl;
+  font-family: 'Cairo', sans-serif;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.rp-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e8f1fa;
+}
+
+.rp-header-icon {
+  width: 52px;
+  height: 52px;
+  background: #1565C0;
+  color: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rp-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0 0 4px;
+}
+
+.rp-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+/* ─── Loading ────────────────────────────────────────────── */
+.rp-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 60px 20px;
+  color: #888;
+  font-size: 15px;
+}
+
+.rp-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #1565C0;
+  border-radius: 50%;
+  animation: rp-spin 0.8s linear infinite;
+}
+
+@keyframes rp-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Error ──────────────────────────────────────────────── */
+.rp-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff3f3;
+  border: 1px solid #ffd0d0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  color: #c0392b;
+  font-size: 14px;
+}
+
+.rp-retry-btn {
+  background: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.rp-retry-btn:hover { background: #a93226; }
+
+/* ─── Cards List ─────────────────────────────────────────── */
+.rp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Card ───────────────────────────────────────────────── */
+.rp-card {
+  background: #ffffff;
+  border: 1px solid #e4eaf3;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(21, 101, 192, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, opacity 0.3s ease;
+}
+
+.rp-card:hover {
+  box-shadow: 0 6px 24px rgba(21, 101, 192, 0.12);
+  transform: translateY(-2px);
+}
+
+.rp-card--deleting {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ─── Product Bar ────────────────────────────────────────── */
+.rp-product-link {
+  text-decoration: none;
+}
+
+.rp-product-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: #f4f8fd;
+  border-bottom: 1px solid #e4eaf3;
+  transition: background 0.2s;
+}
+
+.rp-product-bar:hover { background: #e8f1fa; }
+
+.rp-product-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #dde6f5;
+}
+
+.rp-product-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1565C0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rp-arrow {
+  color: #1565C0;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* ─── Card Body ──────────────────────────────────────────── */
+.rp-card-body {
+  padding: 18px 20px;
+}
+
+.rp-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.rp-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.rp-date {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.rp-comment-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.75;
+  margin: 0 0 14px;
+}
+
+/* ─── Action Buttons ─────────────────────────────────────── */
+.rp-card-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.rp-btn-edit,
+.rp-btn-delete {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rp-btn-edit {
+  background: #f0f5ff;
+  color: #1565C0;
+  border: 1px solid #c5d8f5;
+}
+
+.rp-btn-edit:hover {
+  background: #1565C0;
+  color: white;
+  border-color: #1565C0;
+}
+
+.rp-btn-delete {
+  background: #fff5f5;
+  color: #e53935;
+  border: 1px solid #fdd;
+}
+
+.rp-btn-delete:hover {
+  background: #e53935;
+  color: white;
+  border-color: #e53935;
+}
+
+.rp-btn-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Edit Mode ──────────────────────────────────────────── */
+.rp-edit-mode {
+  margin-top: 4px;
+}
+
+.rp-edit-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.rp-edit-textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 10px 14px;
+  border: 1px solid #d0dff5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Cairo', sans-serif;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: #333;
+}
+
+.rp-edit-textarea:focus {
+  border-color: #1565C0;
+  box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+}
+
+.rp-edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.rp-btn-cancel {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: white;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.rp-btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.rp-btn-save {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #1565C0;
+  color: white;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rp-btn-save:hover { background: #0D47A1; }
+
+/* ─── Empty State ────────────────────────────────────────── */
+.rp-empty-state {
+  text-align: center;
+  padding: 70px 30px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #e4eaf3;
+  box-shadow: 0 4px 20px rgba(21, 101, 192, 0.06);
+}
+
+.rp-empty-icon {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.rp-empty-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 14px;
+}
+
+.rp-empty-desc {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.8;
+  max-width: 440px;
+  margin: 0 auto 28px;
+}
+
+/* ─── Shop Button ────────────────────────────────────────── */
+.rp-shop-btn {
+  padding: 13px 36px;
+  background: #1565C0;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(21, 101, 192, 0.3);
+}
+
+.rp-shop-btn:hover {
+  background: #0D47A1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(21, 101, 192, 0.4);
+}
+
+/* ─── Footer ─────────────────────────────────────────────── */
+.rp-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e8f1fa;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .rp-wrapper { margin: 20px auto 40px; }
+  .rp-title { font-size: 22px; }
+  .rp-card-meta { flex-wrap: wrap; gap: 6px; }
+  .rp-card-actions { justify-content: flex-start; }
+  .rp-empty-state { padding: 50px 20px; }
+}

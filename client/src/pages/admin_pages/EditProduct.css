@@ -1,0 +1,104 @@
+/* src/pages/admin_pages/EditProduct.css */
+
+.ep-product-id-badge {
+  font-size: 14px;
+  font-weight: 600;
+  color: #176FCA;
+  background: #eff6ff;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-right: 8px;
+}
+
+/* ─── Media Count ────────────────────────────── */
+.ep-media-count {
+  margin-right: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  background: #f5f5f5;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+/* ─── Section Labels ─────────────────────────── */
+.ep-section-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ep-section-label i { color: #176FCA; }
+
+.ep-existing-section { margin-bottom: 20px; }
+.ep-new-section      { margin-top: 16px; }
+
+/* ─── Existing Media Item ────────────────────── */
+.ep-existing-item {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ep-existing-item:hover { border-color: #e74c3c !important; }
+
+/* ─── Marked for Delete ──────────────────────── */
+.ep-marked-delete {
+  border-color: #e74c3c !important;
+  opacity: 0.6;
+}
+
+.ep-delete-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(231, 76, 60, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: white;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+.ep-delete-overlay i { font-size: 22px; }
+
+/* ─── Delete Warning ─────────────────────────── */
+.ep-delete-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #e74c3c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ─── Loading ────────────────────────────────── */
+.ep-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 16px;
+  color: #666;
+  font-family: 'Cairo', sans-serif;
+}
+
+.ep-spinner-lg {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #176FCA;
+  border-radius: 50%;
+  animation: ep-spin 0.8s linear infinite;
+  display: inline-block;
+}
+@keyframes ep-spin { to { transform: rotate(360deg); } }

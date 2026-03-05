@@ -1,0 +1,440 @@
+/* AccountOverview.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.account-overview-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: 'Cairo', Arial, sans-serif;
+  direction: rtl;
+}
+
+/* Sidebar Styles */
+.account-sidebar {
+  width: 280px;
+  background: white;
+  padding: 20px;
+  border-left: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.user-profile {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 20px;
+}
+
+/* ── Avatar Upload ── */
+.avatar-wrapper {
+  position: relative;
+  width: 110px;      /* ← حجم الـ avatar — غيّر الرقم زي ما تحب */
+  height: 110px;
+  margin: 0 auto 12px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 110px;      /* ← نفس الرقم فوق */
+  height: 110px;
+  background: #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  overflow: hidden;
+  border: 3px solid #e0e0e0;
+  transition: border-color 0.3s ease;
+  position: relative;
+}
+
+.avatar-wrapper:hover .user-avatar {
+  border-color: #055190;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-edit-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px 0;
+  border-radius: 0 0 50px 50px;
+  font-family: 'Cairo', Arial, sans-serif;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.avatar-wrapper:hover .avatar-edit-overlay {
+  opacity: 1;
+}
+
+.avatar-uploading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border-radius: 50%;
+}
+
+.avatar-error {
+  font-size: 11px;
+  color: #e53935;
+  margin-top: 4px;
+  text-align: center;
+  font-family: 'Cairo', Arial, sans-serif;
+}
+
+/* ── Crop Modal ── */
+.crop-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.crop-modal-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  width: 460px;
+  max-width: 95vw;
+  direction: rtl;
+  font-family: 'Cairo', Arial, sans-serif;
+}
+
+.crop-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.crop-canvas {
+  width: 100%;
+  height: 360px;
+  border-radius: 8px;
+  cursor: move;
+  display: block;
+  background: #111;
+  touch-action: none;
+}
+
+.crop-hint {
+  font-size: 12px;
+  color: #888;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.crop-btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  background: #055190;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', Arial, sans-serif;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #2075b6;
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', Arial, sans-serif;
+  transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+/* ── Sidebar rest ── */
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  background: #f5f5f5;
+}
+
+.menu-item .icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.account-management {
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.account-management h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12px;
+  padding: 0 16px;
+}
+
+.sub-menu-item {
+  display: block;
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sub-menu-item:hover,
+.sub-menu-item.active {
+  background: #f5f5f5;
+}
+
+/* Logout Section */
+.logout-section {
+  padding: 20px 0;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 12px;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: white;
+  border: none;
+  color: #FF9800;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', Arial, sans-serif;
+  text-align: right;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #FFF3E0;
+  transform: translateX(-4px);
+}
+
+.logout-btn:active {
+  transform: translateX(-2px);
+}
+
+/* Content Area Styles */
+.account-content {
+  flex: 1;
+  padding: 30px;
+  max-width: 1200px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.account-info {
+  padding: 8px 0;
+}
+
+.user-name-display {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #666;
+}
+
+.address-section,
+.newsletter-text {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.section-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.no-data {
+  color: #999;
+  margin-bottom: 12px;
+}
+
+.add-btn,
+.edit-btn {
+  background: transparent;
+  border: none;
+  color: #055190;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', Arial, sans-serif;
+  padding: 8px 0;
+  transition: all 0.4s ease;
+}
+
+.add-btn:hover,
+.edit-btn:hover {
+  color: #2075b6;
+  text-decoration: underline;
+  scale: 1.1;
+}
+
+.balance-section {
+  padding: 12px 0;
+}
+
+.balance-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #E3F2FD;
+  border-radius: 8px;
+}
+
+.wallet-icon {
+  font-size: 24px;
+}
+
+.balance-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1976D2;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .account-overview-container {
+    flex-direction: column;
+  }
+
+  .account-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .account-content {
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+}
+
+/* ── حجم الـ avatar على الموبايل ── */
+@media (max-width: 768px) {
+  .avatar-wrapper,
+  .user-avatar {
+    width: 90px;     /* ← حجم الموبايل — غيّر الرقم زي ما تحب */
+    height: 90px;
+  }
+}

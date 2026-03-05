@@ -1,0 +1,260 @@
+/* Favorites.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.favorites-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: 'Cairo', Arial, sans-serif;
+  direction: rtl;
+}
+
+/* Sidebar Styles */
+.favorites-sidebar {
+  width: 280px;
+  background: white;
+  padding: 20px;
+  border-left: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.user-profile {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 20px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  background: #e0e0e0;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  background: #f5f5f5;
+}
+
+.menu-item .icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.account-management {
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.account-management h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12px;
+  padding: 0 16px;
+}
+
+.sub-menu-item {
+  display: block;
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sub-menu-item:hover {
+  background: #f5f5f5;
+}
+
+/* Content Area Styles */
+.favorites-content {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+/* Empty Favorites Styles */
+.empty-favorites {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 400px;
+  background: white;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.heart-icon {
+  margin-bottom: 24px;
+  animation: heartbeat 2.2s ease-in-out infinite;
+}
+
+.empty-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.empty-description {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.8;
+  max-width: 500px;
+  margin-bottom: 24px;
+}
+
+.shop-now-btn {
+  background: linear-gradient(135deg, #35c761 0%, #3a9261 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', Arial, sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(47, 184, 19, 0.3);
+}
+
+.shop-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(28, 179, 14, 0.4);
+}
+
+.shop-now-btn:active {
+  transform: translateY(0);
+}
+
+/* Animations */
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10%, 30% {
+    transform: scale(0.9);
+  }
+  20%, 40%, 60%, 80% {
+    transform: scale(1.1);
+  }
+  50%, 70% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .favorites-container {
+    flex-direction: column;
+  }
+
+  .favorites-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .favorites-content {
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .empty-favorites {
+    min-height: 300px;
+    padding: 40px 20px;
+  }
+
+  .empty-description {
+    font-size: 14px;
+  }
+
+  .shop-now-btn {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+}
+.favorites-page {
+  padding: 20px;
+  direction: rtl;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.favorites-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.wishlist-btn.active i {
+  color: #176FCA;
+}
+
+.wishlist-btn.active:hover i {
+  color: white;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  font-size: 1.2rem;
+  color: #666;
+}

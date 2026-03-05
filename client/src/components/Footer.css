@@ -1,0 +1,262 @@
+/* src/components/Footer.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.footer {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #ffffff;
+  padding: 3rem 1.25rem 1.25rem;
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+  margin-top: 3.75rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.5rem;
+  padding-bottom: 1.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== Desktop: الـ toggle مخفي ===== */
+.footer-toggle-icon {
+  display: none;
+}
+
+.footer-section h3 {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+  position: relative;
+  padding-bottom: 0.625rem;
+  cursor: default;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: clamp(40px, 8vw, 50px);
+  height: 3px;
+  background: #4CAF50;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Desktop: المحتوى دائماً ظاهر */
+.footer-section-content {
+  display: block;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-section ul li a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.footer-section ul li a:hover {
+  color: #ffffff;
+  transform: translateX(-5px);
+  text-decoration: underline;
+}
+
+/* روابط السوشيال ميديا */
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-icon {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon i {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  width: 1.875rem;
+}
+
+.social-icon:hover {
+  color: #4CAF50;
+  transform: translateX(-5px);
+}
+
+/* حقوق النشر */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 1.25rem;
+}
+
+.footer-bottom p {
+  font-size: clamp(0.8125rem, 1.4vw, 0.875rem);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 1024px) {
+  .footer-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .footer {
+    padding: 2.5rem 1rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+
+  .footer {
+    padding: 2rem 1rem 1rem;
+    margin-top: 2.5rem;
+  }
+}
+
+/* ===== Accordion on Mobile (480px وأقل) ===== */
+@media (max-width: 480px) {
+  .footer {
+    padding: 1.5rem 0 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  /* كل section تبقى bordered */
+  .footer-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* إظهار زر الـ toggle */
+  .footer-toggle-icon {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #4CAF50;
+    transition: transform 0.3s ease;
+  }
+
+  .footer-section h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0;
+    padding: 1rem 1.25rem;
+    font-size: 0.9375rem;
+    user-select: none;
+    /* إزالة الـ padding-bottom اللي كانت للـ ::after */
+    padding-bottom: 1rem;
+  }
+
+  /* إخفاء الـ underline decoration في الموبايل */
+  .footer-section h3::after {
+    display: none;
+  }
+
+  /* المحتوى مخفي بالـ default */
+  .footer-section-content {
+    display: none;
+    padding: 0 1.25rem 1rem;
+    animation: slideDown 0.25s ease;
+  }
+
+  /* لما القسم مفتوح */
+  .footer-section.open .footer-section-content {
+    display: block;
+  }
+
+  .footer-section.open h3::after {
+    display: none;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 0.625rem;
+  }
+
+  .social-links {
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .social-icon {
+    flex-direction: row;
+  }
+
+  .footer-bottom {
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .footer-section h3 {
+    font-size: 0.875rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .footer-section-content {
+    padding: 0 1rem 0.875rem;
+  }
+}

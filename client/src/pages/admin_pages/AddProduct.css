@@ -1,0 +1,527 @@
+/* src/pages/admin/AddProduct.css */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 100%; overflow-x: hidden; }
+
+:root {
+  --blue:      #176FCA;
+  --blue-lt:   #3f9bfd;
+  --blue-bg:   #fff8f0;
+  --text:      #333;
+  --muted:     #666;
+  --border:    #ddd;
+  --bg:        #f5f6fa;
+  --white:     #ffffff;
+  --danger:    #e74c3c;
+  --success:   #4CAF50;
+  --radius:    8px;
+  --shadow:    0 2px 8px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.ap-root {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+  color: var(--text);
+}
+
+/* ─── Sidebar ─────────────────────────────────────── */
+.ap-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: var(--white);
+  border-left: 1px solid var(--border);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+
+.ap-sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue);
+  padding: 8px 8px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.ap-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: var(--radius);
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.ap-nav-item:hover { background: #f5f5f5; color: var(--blue); }
+.ap-nav-active {
+  background: var(--blue-bg) !important;
+  color: var(--blue) !important;
+  border: 1px solid #176fca30;
+}
+
+/* ─── Main ────────────────────────────────────────── */
+.ap-main {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+}
+
+/* ─── Header ──────────────────────────────────────── */
+.ap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ap-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.ap-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.ap-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+.ap-back-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ─── Alerts ──────────────────────────────────────── */
+.ap-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  animation: slideIn 0.3s ease;
+}
+.ap-alert-error   { background: #fef2f2; border: 1px solid #fca5a5; color: var(--danger); }
+.ap-alert-success { background: #f0fdf4; border: 1px solid #86efac; color: var(--success); }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Grid ────────────────────────────────────────── */
+.ap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ─── Cards ───────────────────────────────────────── */
+.ap-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow);
+}
+.ap-card-full { grid-column: 1 / -1; }
+
+.ap-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.ap-card-title i { color: var(--blue); }
+
+/* ─── Fields ──────────────────────────────────────── */
+.ap-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ap-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: right;
+}
+
+.ap-req { color: var(--danger); }
+
+.ap-field input,
+.ap-field textarea {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+  text-align: right;
+}
+.ap-field input::placeholder,
+.ap-field textarea::placeholder { color: #aaa; }
+
+.ap-field input:focus,
+.ap-field textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(23,111,202,0.1);
+}
+
+.ap-field textarea { resize: vertical; min-height: 100px; }
+
+.ap-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ─── Input with prefix ───────────────────────────── */
+.ap-input-prefix {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.ap-input-prefix:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(23,111,202,0.1);
+}
+
+.ap-input-prefix span {
+  padding: 10px 12px;
+  background: #f5f5f5;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  border-left: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.ap-input-prefix input {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  border-radius: 0;
+  flex: 1;
+}
+
+/* ─── Discount ────────────────────────────────────── */
+.ap-discount-field { display: flex; align-items: center; gap: 10px; }
+.ap-discount-field input { flex: 1; }
+
+.ap-discount-badge {
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #6cd693 0%, #115c2c 100%);
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px #9ac7aa;
+}
+
+.ap-hint { font-size: 11px; color: #aaa; margin-top: 2px; }
+
+/* ─── Dropzone ────────────────────────────────────── */
+.ap-dropzone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #fafafa;
+}
+.ap-dropzone:hover,
+.ap-dropzone-active {
+  border-color: var(--blue);
+  background: rgba(23,111,202,0.04);
+}
+
+.ap-dropzone i {
+  font-size: 40px;
+  color: var(--blue);
+  opacity: 0.6;
+}
+
+.ap-dropzone p { font-size: 15px; font-weight: 600; color: var(--muted); }
+.ap-dropzone p span { color: var(--blue); text-decoration: underline; }
+.ap-dropzone small { font-size: 12px; color: #aaa; }
+
+/* ─── Preview Grid ────────────────────────────────── */
+.ap-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.ap-preview-item {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 1;
+  border: 2px solid var(--border);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ap-preview-item:first-child { border-color: var(--blue); }
+.ap-preview-item:hover { border-color: var(--blue); box-shadow: var(--shadow-lg); }
+
+.ap-preview-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ap-preview-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.ap-preview-item:hover .ap-preview-overlay { opacity: 1; }
+
+.ap-preview-type { font-size: 16px; }
+
+.ap-preview-remove {
+  background: var(--danger);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.ap-preview-remove:hover { opacity: 0.8; }
+
+.ap-preview-main-badge {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: var(--blue);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ─── Submit Bar ──────────────────────────────────── */
+.ap-submit-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  box-shadow: var(--shadow);
+}
+
+.ap-submit-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.ap-submit-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 28px;
+  background: var(--blue);
+  border: none;
+  border-radius: var(--radius);
+  color: #fff;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 200px;
+  justify-content: center;
+}
+.ap-submit-btn:hover:not(:disabled) {
+  background: var(--blue-lt);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(23,111,202,0.35);
+}
+.ap-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ─── Spinner ─────────────────────────────────────── */
+.ap-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ffffff50;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Responsive ──────────────────────────────────── */
+@media (max-width: 1024px) {
+  .ap-sidebar { display: none; }
+}
+
+@media (max-width: 768px) {
+  .ap-grid { grid-template-columns: 1fr; }
+  .ap-main { padding: 16px; }
+  .ap-row2 { grid-template-columns: 1fr; }
+}
+.ap-hamburger {
+  display: none; /* مخفي على الـ desktop */
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 900;
+  width: 42px;
+  height: 42px;
+  background: var(--blue);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(23,111,202,0.4);
+  transition: background 0.2s;
+}
+.ap-hamburger:hover { background: var(--blue-lt); }
+
+/* ── Overlay ─────────────────────────────────────────────────── */
+.ap-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 998;
+  animation: ap-fade-in 0.2s ease;
+}
+
+@keyframes ap-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── زرار الإغلاق داخل السايدبار ────────────────────────────── */
+.ap-sidebar-close {
+  display: none; /* مخفي على الـ desktop */
+  margin-right: auto; /* يدفعه لليسار */
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.ap-sidebar-close:hover { color: var(--danger); background: #fef2f2; }
+
+/* ── Mobile overrides ────────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+  /* إظهار الهامبرغر */
+  .ap-hamburger {
+    display: flex;
+  }
+
+  /* إظهار زرار الإغلاق */
+  .ap-sidebar-close {
+    display: block;
+  }
+
+  /* السايدبار يتحول لـ drawer من اليمين */
+  .ap-sidebar {
+    display: flex !important; /* override الـ display:none القديم */
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    z-index: 999;
+    transform: translateX(100%); /* مخفي خارج الشاشة */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* لما يتفتح */
+  .ap-sidebar.ap-sidebar-open {
+    transform: translateX(0);
+  }
+
+  /* المحتوى الرئيسي يشغل كل العرض */
+  .ap-main {
+    padding: 16px;
+    padding-top: 64px; /* مسافة فوق عشان الهامبرغر */
+  }
+}

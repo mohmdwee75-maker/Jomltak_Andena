@@ -1,0 +1,274 @@
+/* OrderPage.css */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary-color: #1565C0;
+  --primary-dark:  #0D47A1;
+  --accent-color:  #4CAF50;
+  --red-badge:     #E53935;
+  --orange-badge:  #FF6F00;
+  --text-dark:     #212121;
+  --text-medium:   #757575;
+  --border-color:  #E0E0E0;
+  --bg-page:       #F5F5F5;
+  --bg-card:       #FFFFFF;
+  --shadow-md:     0 2px 8px rgba(0,0,0,0.1);
+  --transition:    all 0.3s ease;
+}
+
+.order-page {
+  min-height: 100vh;
+  background: var(--bg-page);
+  padding: 30px 20px;
+  direction: rtl;
+  font-family: 'Cairo', Arial, sans-serif;
+}
+
+.order-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* العنوان */
+.order-header {
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+}
+.order-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* البطاقة */
+.order-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+.order-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.order-card-title svg {
+  width: 20px; height: 20px;
+  color: var(--primary-color);
+}
+
+/* قائمة المنتجات في الطلب */
+.order-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.order-item-row {
+  display: grid;
+  grid-template-columns: 70px 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  background: #FAFAFA;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.order-item-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.order-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.order-item-name  { font-size: 15px; font-weight: 600; color: var(--text-dark); }
+.order-item-price { font-size: 13px; color: var(--text-medium); }
+
+.order-item-subtotal {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary-color);
+  min-width: 90px;
+  text-align: left;
+}
+
+/* الكمية */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 3px;
+}
+.qty-btn {
+  width: 32px; height: 32px;
+  border: none;
+  background: #F5F5F5;
+  color: var(--primary-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.qty-btn:hover:not(:disabled) { background: var(--primary-color); color: white; }
+.qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.qty-value {
+  min-width: 36px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* الإجمالي */
+.order-total-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #EEF4FF;
+  border: 1px solid #BBDEFB;
+  border-radius: 8px;
+  padding: 14px 20px;
+}
+.order-total-label { font-size: 15px; font-weight: 600; color: var(--text-medium); }
+.order-total-value { font-size: 26px; font-weight: 700; color: var(--primary-color); }
+
+/* فورم التوصيل */
+.delivery-form { display: flex; flex-direction: column; gap: 16px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full-width { grid-column: 1 / -1; }
+
+.form-label { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+.required   { color: var(--red-badge); margin-right: 2px; }
+
+.form-input, .form-textarea, .form-select {
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: 'Cairo', sans-serif;
+  color: var(--text-dark);
+  background: white;
+  transition: var(--transition);
+  direction: rtl;
+  width: 100%;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
+}
+.form-input.error, .form-select.error {
+  border-color: var(--red-badge);
+  box-shadow: 0 0 0 3px rgba(229,57,53,0.1);
+}
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 14px center;
+  padding-left: 36px;
+  cursor: pointer;
+}
+.form-textarea { resize: vertical; min-height: 90px; }
+
+/* نوع العنوان */
+.address-type-group { display: flex; gap: 12px; flex-wrap: wrap; }
+.address-type-option {
+  flex: 1; min-width: 200px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-medium);
+  transition: var(--transition);
+  background: white;
+}
+.address-type-option input[type="radio"] { display: none; }
+.address-type-option:hover  { border-color: var(--primary-color); color: var(--primary-color); background: #F0F6FF; }
+.address-type-option.selected { border-color: var(--primary-color); color: var(--primary-color); background: #EEF4FF; font-weight: 700; }
+
+/* رسالة الخطأ */
+.form-error-msg {
+  background: #FFEBEE;
+  border: 1px solid var(--red-badge);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--red-badge);
+  font-size: 14px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+.form-error-msg svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* زر التأكيد */
+.confirm-order-btn {
+  width: 100%; padding: 16px;
+  background: var(--primary-color);
+  color: white; border: none; border-radius: 8px;
+  font-size: 18px; font-weight: 700;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: var(--transition);
+  font-family: 'Cairo', sans-serif;
+}
+.confirm-order-btn:hover:not(:disabled) { background: var(--primary-dark); box-shadow: var(--shadow-md); }
+.confirm-order-btn:active:not(:disabled) { transform: scale(0.98); }
+.confirm-order-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.confirm-order-btn svg { width: 22px; height: 22px; }
+
+/* الضمانات */
+.order-guarantees {
+  display: flex; justify-content: center; gap: 32px;
+  padding-top: 16px; border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+.guarantee-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-medium); }
+.guarantee-item svg { width: 18px; height: 18px; color: var(--accent-color); flex-shrink: 0; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .order-page   { padding: 20px 15px; }
+  .order-title  { font-size: 24px; }
+  .form-row     { grid-template-columns: 1fr; }
+  .order-item-row { grid-template-columns: 60px 1fr; grid-template-rows: auto auto; }
+  .quantity-controls { grid-column: 1 / -1; justify-content: center; }
+  .order-item-subtotal { grid-column: 1 / -1; text-align: center; }
+  .order-total-bar { flex-direction: column; gap: 6px; text-align: center; }
+  .address-type-group { flex-direction: column; }
+  .order-guarantees { gap: 16px; }
+}
+@media (max-width: 480px) {
+  .order-title  { font-size: 20px; }
+  .order-total-value { font-size: 22px; }
+  .confirm-order-btn { font-size: 16px; padding: 14px; }
+}

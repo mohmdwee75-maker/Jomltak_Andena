@@ -1,0 +1,356 @@
+/* src/pages/Login.module.css */
+
+.loginContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+  padding: 20px;
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+}
+
+.loginBox {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(30, 60, 114, 0.15);
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  border: 1px solid rgba(30, 60, 114, 0.1);
+}
+
+.iconContainer {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.iconContainer .logo {
+  width: 70%;
+  height:20%;
+  object-fit: contain;
+}
+
+.starIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 50%;
+  font-size: 40px;
+  box-shadow: 0 4px 16px rgba(30, 60, 114, 0.3);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.form {
+  margin-bottom: 24px;
+}
+
+.inputGroup {
+  margin-bottom: 24px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  color: #1e3c72;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.phoneInput {
+  display: flex;
+  border: 2px solid #2a5298;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.phoneInput:focus-within {
+  border-color: #1e3c72;
+  box-shadow: 0 0 0 4px rgba(30, 60, 114, 0.1);
+  background: white;
+}
+
+.countryCode {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  padding: 14px 18px;
+  font-size: 16px;
+  outline: none;
+  font-family: 'Cairo', sans-serif;
+  background: transparent;
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+.continueBtn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Cairo', sans-serif;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.continueBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
+}
+
+.continueBtn:active {
+  transform: translateY(-1px);
+}
+
+.divider {
+  text-align: center;
+  margin: 28px 0;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 42%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #ddd, transparent);
+}
+
+.divider::before {
+  right: 0;
+}
+
+.divider::after {
+  left: 0;
+}
+
+.divider span {
+  background: white;
+  padding: 0 20px;
+  color: #666;
+  font-size: 14px;
+  position: relative;
+  font-weight: 500;
+}
+
+.socialButtons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.googleBtn,
+.facebookBtn {
+  width: 65px;
+  height: 65px;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.googleBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
+  border-color: #4285f4;
+}
+
+.facebookBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(24, 119, 242, 0.3);
+  border-color: #1877f2;
+}
+
+.googleBtn img,
+.facebookBtn img {
+  width: 30px;
+  height: 30px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.footer a {
+  color: #1e3c72;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #2a5298;
+  text-decoration: underline;
+}
+
+.helpText {
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .loginBox {
+    padding: 32px 24px;
+    margin: 10px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .starIcon {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+  }
+
+  .continueBtn {
+    font-size: 16px;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginBox {
+    padding: 28px 20px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .phoneInput {
+    flex-direction: column;
+  }
+
+  .countryCode {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    justify-content: center;
+  }
+
+  .socialButtons {
+    gap: 16px;
+  }
+
+  .googleBtn,
+  .facebookBtn {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Animation للصفحة */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loginBox {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ── زرار لدي حساب بالفعل ── */
+.hasAccountWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
+  padding: 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.hasAccountText {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.hasAccountBtn {
+  background: none;
+  border: none;
+  color: #1e3c72;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Cairo', sans-serif;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.hasAccountBtn:hover {
+  color: #2a5298;
+}

@@ -1,0 +1,239 @@
+/* OrderSuccess.css */
+
+:root {
+  --primary-color: #1565C0;
+  --primary-dark: #0D47A1;
+  --accent-color: #4CAF50;
+  --text-dark: #212121;
+  --text-medium: #757575;
+  --border-color: #E0E0E0;
+  --background-page: #F5F5F5;
+  --shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+/* الصفحة */
+.success-page {
+  min-height: 100vh;
+  background: var(--background-page);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  font-family: 'Cairo', 'Arial', sans-serif;
+  direction: rtl;
+}
+
+/* البطاقة */
+.success-card {
+  background: white;
+  border-radius: 16px;
+  padding: 50px 40px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* أيقونة النجاح */
+.success-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.success-icon-circle {
+  width: 90px;
+  height: 90px;
+  background: #E8F5E9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: popIn 0.5s ease 0.2s both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+.success-icon-circle svg {
+  width: 44px;
+  height: 44px;
+  color: var(--accent-color);
+  stroke-width: 3;
+}
+
+/* العنوان */
+.success-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.success-subtitle {
+  font-size: 16px;
+  color: var(--text-medium);
+  margin-bottom: 24px;
+}
+
+/* رسالة */
+.success-message {
+  background: #F0F6FF;
+  border: 1px solid #BBDEFB;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  text-align: right;
+}
+
+.success-message p {
+  font-size: 15px;
+  color: var(--text-dark);
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.success-message p:last-child {
+  margin-bottom: 0;
+}
+
+.success-message strong {
+  color: var(--primary-color);
+}
+
+/* بوكس المعلومات */
+.success-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+  text-align: right;
+}
+
+.success-info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #FAFAFA;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.success-info-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+/* العد التنازلي */
+.success-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.countdown-circle {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.countdown-circle svg {
+  width: 64px;
+  height: 64px;
+  transform: rotate(-90deg);
+}
+
+.countdown-bg {
+  fill: none;
+  stroke: #E0E0E0;
+  stroke-width: 3;
+}
+
+.countdown-fill {
+  fill: none;
+  stroke: var(--primary-color);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s linear;
+}
+
+.countdown-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.countdown-text {
+  font-size: 13px;
+  color: var(--text-medium);
+}
+
+/* زر الرجوع */
+.success-home-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: var(--transition);
+  font-family: 'Cairo', sans-serif;
+}
+
+.success-home-btn:hover {
+  background: var(--primary-dark);
+}
+
+.success-home-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .success-card {
+    padding: 36px 20px;
+  }
+
+  .success-title {
+    font-size: 24px;
+  }
+
+  .success-icon-circle {
+    width: 75px;
+    height: 75px;
+  }
+
+  .success-icon-circle svg {
+    width: 36px;
+    height: 36px;
+  }
+}

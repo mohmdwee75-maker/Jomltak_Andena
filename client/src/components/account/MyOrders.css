@@ -1,0 +1,261 @@
+/* MyOrders.css */
+
+.my-orders { width: 100%; }
+
+.orders-count { font-size: 14px; color: #757575; margin-bottom: 16px; font-weight: 500; }
+
+.orders-loading, .orders-error {
+  text-align: center; padding: 60px 20px; font-size: 16px; color: #757575;
+}
+.orders-error { color: #E53935; }
+
+.orders-empty {
+  text-align: center; padding: 60px 20px;
+  background: white; border-radius: 8px; border: 1px solid #E0E0E0;
+}
+.orders-empty-icon { font-size: 64px; margin-bottom: 16px; }
+.orders-empty h3   { font-size: 20px; font-weight: 700; color: #333; margin-bottom: 8px; }
+.orders-empty p    { font-size: 14px; color: #757575; }
+
+/* قائمة */
+.orders-list { display: flex; flex-direction: column; gap: 16px; }
+
+/* بطاقة */
+.order-card {
+  background: white; border: 1px solid #E0E0E0;
+  border-radius: 10px; overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.order-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+/* رأس */
+.order-card-header {
+  display: flex; align-items: center;
+  padding: 18px 20px; cursor: pointer; gap: 16px;
+}
+
+/* صور متراكمة */
+.order-images-stack {
+  display: flex; align-items: center;
+  flex-shrink: 0; position: relative; height: 64px; min-width: 64px;
+}
+.order-stack-img {
+  width: 60px; height: 60px; object-fit: cover;
+  border-radius: 8px; border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15); position: relative;
+}
+.order-stack-placeholder {
+  width: 60px; height: 60px; background: #F5F5F5;
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 28px; border: 1px solid #E0E0E0;
+}
+.order-stack-more {
+  width: 28px; height: 28px; background: #1565C0; color: white;
+  border-radius: 50%; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: -10px; position: relative; z-index: 10; border: 2px solid white;
+}
+
+.order-card-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.order-product-name { font-size: 16px; font-weight: 700; color: #212121; }
+.order-meta         { font-size: 13px; color: #757575; }
+.order-meta strong  { color: #1565C0; }
+
+.order-card-left { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+.order-total     { font-size: 18px; font-weight: 700; color: #1565C0; }
+.order-toggle    { font-size: 12px; color: #9E9E9E; }
+
+/* Badge */
+.order-status-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.status-pending   { background: #FFF8E1; color: #F57F17; }
+.status-confirmed { background: #E3F2FD; color: #1565C0; }
+.status-approved  { background: #E8F5E9; color: #2E7D32; }
+.status-shipping  { background: #E0F2F1; color: #00695C; }
+.status-shipped   { background: #EDE7F6; color: #4527A0; }
+.status-delivered { background: #E8F5E9; color: #1B5E20; }
+.status-rejected  { background: #FFEBEE; color: #B71C1C; }
+.status-cancelled { background: #F5F5F5; color: #757575; }
+
+/* تفاصيل */
+.order-card-details {
+  border-top: 1px solid #F0F0F0; padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+  background: #FAFAFA;
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-section {
+  background: white; border: 1px solid #E0E0E0;
+  border-radius: 8px; padding: 16px;
+}
+.detail-title {
+  font-size: 14px; font-weight: 700; color: #333;
+  margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.order-detail-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 0; border-bottom: 1px solid #F5F5F5;
+}
+.order-detail-item:last-of-type { border-bottom: none; }
+
+.detail-item-img {
+  width: 60px; height: 60px; object-fit: cover;
+  border-radius: 6px; border: 1px solid #E0E0E0; flex-shrink: 0;
+}
+.detail-item-img-placeholder {
+  width: 60px; height: 60px; background: #F5F5F5;
+  border-radius: 6px; display: flex; align-items: center;
+  justify-content: center; font-size: 24px; flex-shrink: 0; border: 1px solid #E0E0E0;
+}
+.detail-item-info     { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.detail-item-name     { font-size: 14px; font-weight: 600; color: #212121; }
+.detail-item-meta     { font-size: 12px; color: #757575; }
+.detail-item-subtotal { font-size: 15px; font-weight: 700; color: #1565C0; flex-shrink: 0; }
+
+.detail-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 0; font-size: 14px; border-bottom: 1px solid #F9F9F9;
+}
+.detail-row:last-child         { border-bottom: none; }
+.detail-row span:first-child   { color: #757575; }
+.detail-row span:last-child    { color: #212121; font-weight: 500; text-align: left; }
+.detail-row.total span         { font-weight: 700; font-size: 15px; color: #1565C0; }
+
+/* التايم لاين */
+.order-timeline {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 8px; flex-wrap: wrap;
+}
+.timeline-step {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  flex: 1; min-width: 80px; text-align: center; font-size: 12px; color: #9E9E9E;
+}
+.timeline-dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #E0E0E0; color: #9E9E9E;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; transition: all 0.3s ease;
+}
+.timeline-step.done .timeline-dot { background: #1565C0; color: white; }
+.timeline-step.done               { color: #1565C0; font-weight: 600; }
+
+/* إلغاء */
+.cancelled-info {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px; background: #F5F5F5; border-radius: 8px;
+}
+.cancelled-icon   { font-size: 28px; }
+.cancelled-reason { font-size: 13px; color: #757575; margin-top: 4px; }
+
+/* زرار إلغاء */
+.cancel-order-btn {
+  width: 100%; padding: 12px;
+  background: white; color: #E53935;
+  border: 2px solid #E53935; border-radius: 8px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  transition: all 0.3s ease; font-family: 'Cairo', sans-serif;
+}
+.cancel-order-btn:hover { background: #FFEBEE; }
+
+/* نوتيس الدعم */
+.support-notice {
+  background: #FFF8E1; border: 1px solid #FFB300;
+  border-radius: 8px; padding: 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+.support-notice p { font-size: 14px; color: #795548; font-weight: 500; }
+
+.contact-support-btn {
+  padding: 10px 20px;
+  background: #1565C0; color: white;
+  border: none; border-radius: 6px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  font-family: 'Cairo', sans-serif; transition: all 0.3s ease; white-space: nowrap;
+}
+.contact-support-btn:hover { background: #0D47A1; }
+
+/* ── المودال ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 20px;
+}
+.modal-box {
+  background: white; border-radius: 12px;
+  padding: 28px; max-width: 420px; width: 100%;
+  direction: rtl; font-family: 'Cairo', sans-serif;
+  animation: popIn 0.25s ease;
+}
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.modal-title    { font-size: 18px; font-weight: 700; color: #212121; margin-bottom: 6px; }
+.modal-subtitle { font-size: 14px; color: #757575; margin-bottom: 16px; }
+
+.modal-reasons { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.reason-option {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border: 2px solid #E0E0E0;
+  border-radius: 8px; cursor: pointer; font-size: 14px; color: #333;
+  transition: all 0.2s ease;
+}
+.reason-option input[type="radio"] { display: none; }
+.reason-option:hover   { border-color: #1565C0; background: #F0F6FF; }
+.reason-option.selected { border-color: #1565C0; background: #EEF4FF; color: #1565C0; font-weight: 700; }
+
+.modal-actions { display: flex; gap: 10px; }
+.modal-btn-cancel {
+  flex: 1; padding: 12px;
+  background: white; color: #757575;
+  border: 1px solid #E0E0E0; border-radius: 8px;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  font-family: 'Cairo', sans-serif; transition: all 0.2s ease;
+}
+.modal-btn-cancel:hover { background: #F5F5F5; }
+
+.modal-btn-confirm {
+  flex: 1; padding: 12px;
+  background: #E53935; color: white;
+  border: none; border-radius: 8px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: 'Cairo', sans-serif; transition: all 0.2s ease;
+}
+.modal-btn-confirm:hover:not(:disabled) { background: #C62828; }
+.modal-btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* مودال الدعم */
+.support-icon { font-size: 48px; text-align: center; margin-bottom: 12px; }
+.support-options { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+
+.support-btn {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; border-radius: 8px;
+  text-decoration: none; font-size: 15px; font-weight: 600;
+  transition: all 0.2s ease;
+}
+.support-btn span { font-size: 20px; }
+.support-btn.whatsapp { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+.support-btn.phone    { background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9; }
+.support-btn.email    { background: #FFF3E0; color: #E65100; border: 1px solid #FFCC80; }
+.support-btn:hover    { filter: brightness(0.95); transform: translateX(-3px); }
+
+.support-note { font-size: 13px; color: #9E9E9E; text-align: center; }
+.support-note strong { color: #1565C0; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .order-card-header  { flex-wrap: wrap; }
+  .order-card-left    { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+  .support-notice     { flex-direction: column; }
+  .timeline-step      { min-width: 60px; font-size: 11px; }
+}

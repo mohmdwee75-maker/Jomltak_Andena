@@ -1,0 +1,434 @@
+/* src/pages/ProfileDetails.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+  padding: 20px;
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+}
+
+.formBox {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(30, 60, 114, 0.15);
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  border: 1px solid rgba(30, 60, 114, 0.1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.iconContainer {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.iconContainer .logo {
+  width: 70%;
+  height: 20%;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.form {
+  margin-bottom: 24px;
+}
+
+.inputGroup {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: 'Cairo', sans-serif;
+  color: #333;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2a5298;
+  box-shadow: 0 0 0 4px rgba(30, 60, 114, 0.15);
+  background: white;
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+.inputLabel {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  background: white;
+  padding: 0 8px;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.errorText {
+  color: #f44336;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Cairo', sans-serif;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
+}
+
+.submitBtn:active {
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.termsCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.termsCheck input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #1e3c72;
+}
+
+.termsCheck label {
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  user-select: none;
+}
+
+.link {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.helpText {
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  font-weight: 500;
+}
+
+/* ========== Styles for View Mode (Flage_maping = 1) ========== */
+.viewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.viewItem {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.viewItem:hover {
+  border-color: #2a5298;
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.1);
+}
+
+.viewLabel {
+  font-size: 13px;
+  color: #666;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.viewValue {
+  font-size: 16px;
+  color: #1e3c72;
+  margin: 0;
+  font-weight: 600;
+}
+
+.backBtn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Cairo', sans-serif;
+  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
+.backBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4);
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+}
+
+.backBtn:active {
+  transform: translateY(-1px);
+}
+
+/* ========== Styles for Admin Mode (Flage_maping = 2) ========== */
+.adminInput {
+  border: 2px solid #4CAF50 !important;
+  background: #f1f8f4 !important;
+}
+
+.adminInput:focus {
+  border-color: #45a049 !important;
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15) !important;
+  background: white !important;
+}
+
+.adminBadge {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.adminBtn {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3) !important;
+}
+
+.adminBtn:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4) !important;
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%) !important;
+}
+
+.adminNote {
+  background: linear-gradient(135deg, #f1f8f4 0%, #e8f5e9 100%);
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  margin-top: 16px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+}
+
+.adminNote p {
+  margin: 0;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .formBox {
+    padding: 32px 24px;
+    margin: 10px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .submitBtn,
+  .backBtn {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .viewItem {
+    padding: 14px;
+  }
+
+  .viewLabel {
+    font-size: 12px;
+  }
+
+  .viewValue {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formBox {
+    padding: 28px 20px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .input {
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  .submitBtn,
+  .backBtn {
+    font-size: 15px;
+    padding: 13px;
+  }
+
+  .adminBadge {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+}
+/* ── زود الـ classes دول في Profiledetails.module.css ── */
+
+/* صف أزرار التعديل والرجوع */
+.editBtnRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* زرار تعديل البيانات */
+.editBtn {
+  background: #055190;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', Arial, sans-serif;
+  transition: background 0.3s ease;
+}
+.editBtn:hover {
+  background: #2075b6;
+}
+
+/* زرار إلغاء */
+.cancelBtn {
+  background: #f5f5f5;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cairo', Arial, sans-serif;
+  transition: background 0.3s ease;
+}
+.cancelBtn:hover {
+  background: #e0e0e0;
+}
+.cancelBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* رسالة نجاح */
+.successText {
+  color: #2e7d32;
+  background: #e8f5e9;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 8px;
+  font-family: 'Cairo', Arial, sans-serif;
+}
