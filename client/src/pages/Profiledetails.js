@@ -14,32 +14,32 @@ import styles from './Profiledetails.module.css';
 const validate = (data) => {
   if (!data.firstName.trim() || data.firstName.trim().length < 2)
     return 'الإسم الأول يجب أن يكون حرفين على الأقل';
-  if (!data.lastName.trim()  || data.lastName.trim().length < 2)
+  if (!data.lastName.trim() || data.lastName.trim().length < 2)
     return 'الكنية يجب أن تكون حرفين على الأقل';
   if (!data.city.trim())
     return 'المدينة مطلوبة';
   if (data.birthDate) {
     const d = new Date(data.birthDate);
     if (isNaN(d.getTime())) return 'تاريخ الميلاد غير صحيح';
-    if (d > new Date())     return 'تاريخ الميلاد لا يمكن أن يكون في المستقبل';
+    if (d > new Date()) return 'تاريخ الميلاد لا يمكن أن يكون في المستقبل';
   }
   return null;
 };
 
 const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
-  const [searchParams]  = useSearchParams();
-  const Flage_maping    = Number(searchParams.get('Flage_maping') ?? propFlag);
+  const [searchParams] = useSearchParams();
+  const Flage_maping = Number(searchParams.get('Flage_maping') ?? propFlag);
 
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', birthDate: '', city: ''
   });
   const [originalData, setOriginalData] = useState(null); // نسخة أصلية للـ cancel
-  const [isEditing, setIsEditing]       = useState(false); // وضع التعديل
+  const [isEditing, setIsEditing] = useState(false); // وضع التعديل
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [fetching, setFetching] = useState(false);
-  const [loading, setLoading]   = useState(false);
-  const [error, setError]       = useState('');
-  const [success, setSuccess]   = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   // ── جيب البيانات من السيرفر ─────────────────────────────
@@ -51,7 +51,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
         const token = localStorage.getItem('token');
         if (!token) { navigate('/signin'); return; }
 
-        const res  = await fetch('http://localhost:5000/api/user/profile', {
+        const res = await fetch('http://localhost:5000/api/user/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.status === 401) { navigate('/signin'); return; }
@@ -59,9 +59,9 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
         if (res.ok) {
           const loaded = {
             firstName: data.firstName || '',
-            lastName:  data.lastName  || '',
+            lastName: data.lastName || '',
             birthDate: data.birthDate ? data.birthDate.slice(0, 10) : '',
-            city:      data.city      || ''
+            city: data.city || ''
           };
           setFormData(loaded);
           setOriginalData(loaded); // احفظ نسخة أصلية
@@ -73,6 +73,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
       }
     };
     fetchProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Flage_maping]);
 
   const handleChange = (e) => {
@@ -105,9 +106,9 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
         // بنبعت بس الحقول المسموح تتغير
         body: JSON.stringify({
           firstName: formData.firstName.trim(),
-          lastName:  formData.lastName.trim(),
+          lastName: formData.lastName.trim(),
           birthDate: formData.birthDate,
-          city:      formData.city.trim()
+          city: formData.city.trim()
         })
       });
 
@@ -227,7 +228,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
                 />
               </div>
 
-              {error   && <p className={styles.errorText}>{error}</p>}
+              {error && <p className={styles.errorText}>{error}</p>}
               {success && <p className={styles.successText}>{success}</p>}
 
               <div className={styles.editBtnRow}>
@@ -290,7 +291,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
   // ════════════════════════════════════════════════════════
   // CREATE / ADMIN MODE
   // ════════════════════════════════════════════════════════
-  const isAdminMode  = Flage_maping === 2;
+  const isAdminMode = Flage_maping === 2;
   const isCreateMode = Flage_maping === 0;
 
   return (

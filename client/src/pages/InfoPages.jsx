@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Footer from "../components/Footer.module";
 import HeroSection from "../components/HeroSection.module";
-const T = {
+const _T = {
   navy: "#1e3c72", blue: "#2a5298", green: "#4CAF50",
   greenDark: "#45a049", bg: "#f5f7fa", white: "#ffffff",
   textMuted: "#666", border: "rgba(30,60,114,0.10)",
@@ -127,12 +127,12 @@ const globalStyle = `
 `;
 
 const pages = [
-  { id: "about",    icon: "🏢", label: "من نحن" },
-  { id: "contact",  icon: "📞", label: "تواصل معانا" },
-  { id: "terms",    icon: "📄", label: "الشروط والأحكام" },
-  { id: "privacy",  icon: "🔒", label: "سياسة الخصوصية" },
-  { id: "faq",      icon: "❓", label: "الأسئلة الشائعة" },
-  { id: "return",   icon: "↩️", label: "الإرجاع والاستبدال" },
+  { id: "about", icon: "🏢", label: "من نحن" },
+  { id: "contact", icon: "📞", label: "تواصل معانا" },
+  { id: "terms", icon: "📄", label: "الشروط والأحكام" },
+  { id: "privacy", icon: "🔒", label: "سياسة الخصوصية" },
+  { id: "faq", icon: "❓", label: "الأسئلة الشائعة" },
+  { id: "return", icon: "↩️", label: "الإرجاع والاستبدال" },
   { id: "shipping", icon: "🚚", label: "الشحن والتوصيل" },
 ];
 
@@ -205,9 +205,9 @@ function AboutPage() {
       <p className="para">بدأنا رحلتنا من إيمانٍ بأن الجودة والسعر المناسب حق للجميع، وبنينا منصتنا على أساس الثقة والشفافية.</p>
       <div className="about-grid">
         {[
-          { icon: "🎯", label: "رؤيتنا",  text: "نكون المنصة الأولى لقطع الغيار في المنطقة" },
+          { icon: "🎯", label: "رؤيتنا", text: "نكون المنصة الأولى لقطع الغيار في المنطقة" },
           { icon: "💡", label: "مهمتنا", text: "توفير قطع غيار موثوقة بأسعار تنافسية" },
-          { icon: "❤️", label: "قيمنا",  text: "الأمانة والجودة والخدمة المتميزة" },
+          { icon: "❤️", label: "قيمنا", text: "الأمانة والجودة والخدمة المتميزة" },
         ].map(c => (
           <div key={c.label} className="about-card">
             <div className="about-card-icon">{c.icon}</div>
@@ -291,10 +291,10 @@ function ReturnPage() {
         "لا ينطبق الإرجاع على المنتجات المخصصة أو المُعدَّلة.",
       ]} />
       <div style={{ marginTop: 16 }}>
-        <StepCard num="1" title="تواصل معنا"   desc="أرسل طلب الإرجاع عبر الواتساب أو البريد مع رقم طلبك." />
-        <StepCard num="2" title="تأكيد الطلب"  desc="هيتواصل معك فريقنا خلال 24 ساعة لتأكيد طلب الإرجاع." />
+        <StepCard num="1" title="تواصل معنا" desc="أرسل طلب الإرجاع عبر الواتساب أو البريد مع رقم طلبك." />
+        <StepCard num="2" title="تأكيد الطلب" desc="هيتواصل معك فريقنا خلال 24 ساعة لتأكيد طلب الإرجاع." />
         <StepCard num="3" title="إرسال المنتج" desc="ارسل المنتج على العنوان المحدد أو انتظر مندوب الاستلام." />
-        <StepCard num="4" title="الاسترداد"    desc="بعد مراجعة المنتج، يتم رد المبلغ خلال 3–5 أيام عمل." />
+        <StepCard num="4" title="الاسترداد" desc="بعد مراجعة المنتج، يتم رد المبلغ خلال 3–5 أيام عمل." />
       </div>
     </Section>
   );
@@ -307,9 +307,9 @@ function ShippingPage() {
       <div className="ship-grid">
         {[
           { icon: "⏱️", title: "وقت التوصيل", value: "2 – 5 أيام عمل" },
-          { icon: "💰", title: "رسوم الشحن",   value: "تبدأ من 35 جنيه" },
-          { icon: "🆓", title: "شحن مجاني",    value: "فوق 500 جنيه" },
-          { icon: "🗺️", title: "التغطية",      value: "جميع المحافظات" },
+          { icon: "💰", title: "رسوم الشحن", value: "تبدأ من 35 جنيه" },
+          { icon: "🆓", title: "شحن مجاني", value: "فوق 500 جنيه" },
+          { icon: "🗺️", title: "التغطية", value: "جميع المحافظات" },
         ].map(c => (
           <div key={c.title} className="ship-card">
             <div className="ship-card-icon">{c.icon}</div>
@@ -353,7 +353,7 @@ export default function InfoPages() {
 
   return (
     <>
-    <HeroSection showExtra={false}/>
+      <HeroSection showExtra={false} />
       <style>{globalStyle}</style>
       <div className="mobile-tabs">
         {pages.map(p => (

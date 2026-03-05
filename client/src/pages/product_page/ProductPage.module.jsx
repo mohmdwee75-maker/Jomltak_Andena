@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useLayoutEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import './ProductPage.css';
@@ -16,32 +16,32 @@ const getCurrentUser = () => {
 const ProductPage = () => {
 
 
-  const { id }      = useParams();
-  const navigate    = useNavigate();
+  const { id } = useParams();
+  const navigate = useNavigate();
   const currentUser = getCurrentUser();
 
-  const [productData, setProductData]         = useState(null);
-  const [loading, setLoading]                 = useState(true);
-  const [currentIndex, setCurrentIndex]       = useState(0);
-  const [rating, setRating]                   = useState(0);
-  const [comment, setComment]                 = useState('');
-  const [comments, setComments]               = useState([]);
+  const [productData, setProductData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
   const [commentsLoading, setCommentsLoading] = useState(true);
-  const [page, setPage]                       = useState(1);
-  const [hasMore, setHasMore]                 = useState(false);
-  const [mediaItems, setMediaItems]           = useState([]);
-  const [submitting, setSubmitting]           = useState(false);
-  const [editingId, setEditingId]             = useState(null);
-  const [editText, setEditText]               = useState('');
-  const [editRating, setEditRating]           = useState(0);
-  const [showCartToast, setShowCartToast]     = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [mediaItems, setMediaItems] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [editText, setEditText] = useState('');
+  const [editRating, setEditRating] = useState(0);
+  const [showCartToast, setShowCartToast] = useState(false);
 
   // ─── Swipe state ──────────────────────────────────────────────────────────
-  const touchStartX   = useRef(null);
-  const touchStartY   = useRef(null);
-  const isDragging    = useRef(false);
-  const trackRef      = useRef(null);
-  const autoPlayRef   = useRef(null);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const isDragging = useRef(false);
+  const trackRef = useRef(null);
+  const autoPlayRef = useRef(null);
 
   // ─── Auto-play every 3 seconds ────────────────────────────────────────────
   const goTo = useCallback((index) => {
@@ -66,7 +66,7 @@ const ProductPage = () => {
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
-    isDragging.current  = false;
+    isDragging.current = false;
     clearInterval(autoPlayRef.current);
   };
 
@@ -92,7 +92,7 @@ const ProductPage = () => {
     }
     touchStartX.current = null;
     touchStartY.current = null;
-    isDragging.current  = false;
+    isDragging.current = false;
     resetAutoPlay();
   };
 
@@ -112,10 +112,10 @@ const ProductPage = () => {
     resetAutoPlay();
   };
 
-useLayoutEffect(() => {
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-}, [id]);
+  useLayoutEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [id]);
   // ─── استرجاع التعليق المحفوظ مؤقتاً ──────────────────────────────────────
   useEffect(() => {
     const saved = localStorage.getItem('pending_comment');
@@ -129,6 +129,7 @@ useLayoutEffect(() => {
         }
       } catch { localStorage.removeItem('pending_comment'); }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, currentUser?._id]);
 
   // ─── جيب بيانات المنتج ────────────────────────────────────────────────────
@@ -139,23 +140,23 @@ useLayoutEffect(() => {
         const data = await response.json();
 
         setProductData({
-          title:        data.name,
-          category:     data.category || data.categoryName || '',
-          categoryId:   data.categoryId || data.category_id || '',
+          title: data.name,
+          category: data.category || data.categoryName || '',
+          categoryId: data.categoryId || data.category_id || '',
           currentPrice: `${data.price} جنيه`,
-          oldPrice:     `${data.oldPrice} جنيه`,
-          discount:     data.discount,
-          description:  data.description,
-          rating:       data.rating || 0,
+          oldPrice: `${data.oldPrice} جنيه`,
+          discount: data.discount,
+          description: data.description,
+          rating: data.rating || 0,
           reviewsCount: data.reviewsCount || 0,
-          minQuantity:  data.minQuantity || 1,
+          minQuantity: data.minQuantity || 1,
           ratingBreakdown: data.ratingBreakdown || null,
         });
 
         setMediaItems(data.media?.map(item => ({
           type: item.type,
-          src:  item.url,
-          alt:  item.alt,
+          src: item.url,
+          alt: item.alt,
         })) || []);
 
       } catch (error) {
@@ -173,12 +174,13 @@ useLayoutEffect(() => {
   useEffect(() => {
     if (!id) return;
     fetchComments(1, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchComments = async (pageNum = 1, reset = false) => {
     try {
       setCommentsLoading(true);
-      const res  = await fetch(`http://localhost:5000/api/comments/${id}?page=${pageNum}&limit=8`);
+      const res = await fetch(`http://localhost:5000/api/comments/${id}?page=${pageNum}&limit=8`);
       const data = await res.json();
 
       setComments(prev => reset ? data.comments : [...prev, ...data.comments]);
@@ -195,7 +197,7 @@ useLayoutEffect(() => {
 
   // ─── إرسال تعليق ──────────────────────────────────────────────────────────
   const handleSubmitComment = async () => {
-    if (rating === 0)          { alert('من فضلك اختر تقييمك للمنتج'); return; }
+    if (rating === 0) { alert('من فضلك اختر تقييمك للمنتج'); return; }
     if (comment.trim() === '') { alert('من فضلك اكتب تعليقك'); return; }
 
     if (!currentUser) {
@@ -207,7 +209,7 @@ useLayoutEffect(() => {
     try {
       setSubmitting(true);
       const res = await fetch(`http://localhost:5000/api/comments/${id}`, {
-        method:  'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id, text: comment, rating }),
       });
@@ -230,7 +232,7 @@ useLayoutEffect(() => {
     if (!window.confirm('هل تريد حذف هذا التعليق؟')) return;
     try {
       const res = await fetch(`http://localhost:5000/api/comments/single/${commentId}`, {
-        method:  'DELETE',
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id }),
       });
@@ -247,7 +249,7 @@ useLayoutEffect(() => {
     if (editText.trim() === '') { alert('التعليق لا يمكن أن يكون فارغاً'); return; }
     try {
       const res = await fetch(`http://localhost:5000/api/comments/single/${commentId}`, {
-        method:  'PUT',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id, text: editText, rating: editRating }),
       });
@@ -265,10 +267,10 @@ useLayoutEffect(() => {
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     const diff = Date.now() - new Date(dateStr).getTime();
-    const days  = Math.floor(diff / 86400000);
+    const days = Math.floor(diff / 86400000);
     if (days === 0) return 'اليوم';
     if (days === 1) return 'منذ يوم';
-    if (days < 7)  return `منذ ${days} أيام`;
+    if (days < 7) return `منذ ${days} أيام`;
     if (days < 30) return `منذ ${Math.floor(days / 7)} أسابيع`;
     if (days < 365) return `منذ ${Math.floor(days / 30)} شهور`;
     return `منذ ${Math.floor(days / 365)} سنوات`;
@@ -315,7 +317,7 @@ useLayoutEffect(() => {
         <div className="pp-rating-bars">
           {[5, 4, 3, 2, 1].map(star => {
             const count = breakdown[star] || 0;
-            const pct   = total > 0 ? Math.round((count / total) * 100) : 0;
+            const pct = total > 0 ? Math.round((count / total) * 100) : 0;
             return (
               <div key={star} className="pp-rating-bar-row">
                 <span className="pp-rating-bar-label">{star}</span>
@@ -336,8 +338,8 @@ useLayoutEffect(() => {
   };
 
   // ─── Render ───────────────────────────────────────────────────────────────
-  if (loading)       return <div className="pp-loading">جاري التحميل...</div>;
-  if (!productData)  return <div className="pp-error">المنتج غير موجود</div>;
+  if (loading) return <div className="pp-loading">جاري التحميل...</div>;
+  if (!productData) return <div className="pp-error">المنتج غير موجود</div>;
 
   return (
     <div className="pp-page-wrapper">
@@ -419,7 +421,7 @@ useLayoutEffect(() => {
               }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
             </button>
             <div className="pp-gallery-track-wrapper">
@@ -433,8 +435,8 @@ useLayoutEffect(() => {
                     {item.type === 'image'
                       ? <img src={item.src} alt={item.alt} draggable="false" />
                       : <video controls>
-                          <source src={item.src} type="video/mp4" />
-                        </video>
+                        <source src={item.src} type="video/mp4" />
+                      </video>
                     }
                   </div>
                 ))}
@@ -491,10 +493,10 @@ useLayoutEffect(() => {
                 } else {
                   cart.push({
                     id, name: productData.title,
-                    price:    parseFloat(productData.currentPrice),
+                    price: parseFloat(productData.currentPrice),
                     oldPrice: parseFloat(productData.oldPrice),
                     discount: parseInt(productData.discount),
-                    image:    mediaItems[0]?.src || '',
+                    image: mediaItems[0]?.src || '',
                     quantity: 1, inStock: true,
                     maxQuantity: productData.minQuantity || 10,
                   });
@@ -504,8 +506,8 @@ useLayoutEffect(() => {
               }}
             >
               <svg className="pp-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
               </svg>
               <span>إضافة إلى السلة</span>
             </button>
@@ -521,18 +523,18 @@ useLayoutEffect(() => {
                 navigate('/order', {
                   state: {
                     product: {
-                      productId:   id,
-                      name:        productData.title,
-                      price:       parseFloat(productData.currentPrice),
+                      productId: id,
+                      name: productData.title,
+                      price: parseFloat(productData.currentPrice),
                       minQuantity: productData.minQuantity,
-                      media:       mediaItems.map(m => ({ url: m.src }))
+                      media: mediaItems.map(m => ({ url: m.src }))
                     }
                   }
                 });
               }}
             >
               <svg className="pp-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
               <span>اطلب الآن</span>
             </button>
@@ -541,22 +543,22 @@ useLayoutEffect(() => {
           <div className="pp-product-features">
             <div className="pp-feature">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
               <span>ضمان سنتين</span>
             </div>
             <div className="pp-feature">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
               </svg>
               <span>شحن مجاني</span>
             </div>
             <div className="pp-feature">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
               <span>إرجاع خلال 14 يوم</span>
             </div>
@@ -566,10 +568,10 @@ useLayoutEffect(() => {
           <div className="pp-delivery-section">
             <div className="pp-delivery-header">
               <svg className="pp-delivery-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="1" y="3" width="15" height="13" rx="1"/>
-                <path d="M16 8h4l3 4v4h-7V8z"/>
-                <circle cx="5.5" cy="18.5" r="2.5"/>
-                <circle cx="18.5" cy="18.5" r="2.5"/>
+                <rect x="1" y="3" width="15" height="13" rx="1" />
+                <path d="M16 8h4l3 4v4h-7V8z" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
               </svg>
               <span className="pp-delivery-title">تفاصيل التوصيل</span>
               <div className="pp-delivery-logo">
@@ -579,8 +581,8 @@ useLayoutEffect(() => {
 
             <div className="pp-delivery-row">
               <svg className="pp-delivery-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
               </svg>
               <div className="pp-delivery-text">
                 <span className="pp-delivery-label">مدة التوصيل</span>
@@ -591,8 +593,8 @@ useLayoutEffect(() => {
 
             <div className="pp-delivery-row">
               <svg className="pp-delivery-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
               </svg>
               <div className="pp-delivery-text">
                 <span className="pp-delivery-label">التوصيل لجميع المحافظات</span>
@@ -602,7 +604,7 @@ useLayoutEffect(() => {
 
             <div className="pp-delivery-row">
               <svg className="pp-delivery-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
               <div className="pp-delivery-text">
                 <span className="pp-delivery-label">دفع آمن عند الاستلام</span>
@@ -740,7 +742,7 @@ useLayoutEffect(() => {
           <div className="pp-cart-toast" onClick={e => e.stopPropagation()}>
             <div className="pp-cart-toast-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12"/>
+                <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
             <p className="pp-cart-toast-msg">تمت الإضافة إلى السلة! 🛒</p>
@@ -750,7 +752,7 @@ useLayoutEffect(() => {
                 onClick={() => setShowCartToast(false)}
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
                 متابعة التسوق
               </button>
@@ -759,8 +761,8 @@ useLayoutEffect(() => {
                 onClick={() => { setShowCartToast(false); navigate('/cart'); }}
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                  <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                 </svg>
                 عرض السلة
               </button>
