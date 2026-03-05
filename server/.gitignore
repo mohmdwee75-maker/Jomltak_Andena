@@ -1,0 +1,10 @@
+# environment variables — لا ترفعها أبداً على Git
+.env
+.env.*
+
+# dependencies
+node_modules/
+
+# logs
+*.log
+npm-debug.log*
