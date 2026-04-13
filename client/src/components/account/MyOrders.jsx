@@ -193,7 +193,7 @@ export default function MyOrders() {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/orders/my', {
+        const res = await axios.get('/api/orders/my', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrders(res.data.orders);
@@ -210,7 +210,7 @@ export default function MyOrders() {
     setCancelling(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/orders/cancel/${orderId}`,
+      await axios.put(`/api/orders/cancel/${orderId}`,
         { reason },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -229,7 +229,7 @@ export default function MyOrders() {
     try {
       const token = localStorage.getItem('token');
       await axios.put(
-        `http://localhost:5000/api/orders/customer-confirm/${orderId}`, {},
+        `/api/orders/customer-confirm/${orderId}`, {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setOrders(prev => prev.map(o =>

@@ -3,35 +3,31 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Login.module.css';
 
+const validateEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+
 function Login() {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [loading, setLoading]         = useState(false);
-  const [error, setError]             = useState('');
+  const [email, setEmail]       = useState('');
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState('');
   const navigate  = useNavigate();
   const location  = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (phoneNumber.length !== 11) {
-      setError('يرجى إدخال رقم هاتف صحيح (11 أرقام)');
+    if (!validateEmail(email)) {
+      setError('يرجى إدخال بريد إلكتروني صحيح');
       return;
     }
 
     setError('');
     setLoading(true);
 
-    const formattedPhone = `+20${phoneNumber.startsWith('0')
-      ? phoneNumber.slice(1)
-      : phoneNumber}`;
-
-    console.log("الرقم النهائي:", formattedPhone);
-
     try {
-      const response = await fetch('http://localhost:5000/send-otp', {
+      const response = await fetch('/send-otp', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ phoneNumber: formattedPhone }),
+        body:    JSON.stringify({ email: email.trim() }),
       });
 
       const data = await response.json();
@@ -39,8 +35,8 @@ function Login() {
       if (response.ok) {
         navigate('/verify-otp', {
           state: {
-            phoneNumber: formattedPhone,
-            from: location.state?.from,  // ← نمرر الصفحة السابقة
+            email: email.trim(),
+            from: location.state?.from,
           },
         });
       } else {
@@ -66,29 +62,29 @@ function Login() {
         {/* العنوان */}
         <h1 className={styles.title}>مرحباً بكم في Jomltak 3ndna</h1>
         <p className={styles.subtitle}>
-          إستخدم بريدك الإلكتروني أو رقم هاتفك لتسجيل الدخول أو إنشاء حساب
+          أدخل بريدك الإلكتروني لإنشاء حساب جديد
         </p>
 
         {/* الفورم */}
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label className={styles.label}>
-              عنوان البريد الإلكتروني أو رقم الهاتف*
+              البريد الإلكتروني*
             </label>
             <div className={styles.phoneInput}>
-              <span className={styles.countryCode}>+20 EG</span>
+              <span className={styles.countryCode}>📧</span>
               <input
-                type="tel"
-                value={phoneNumber}
+                type="email"
+                value={email}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, '');
-                  if (value.length <= 11) setPhoneNumber(value);
+                  setEmail(e.target.value);
+                  setError('');
                 }}
-                placeholder="1281079916"
+                placeholder="example@gmail.com"
                 className={styles.input}
                 required
-                minLength={11}
-                maxLength={11}
+                autoComplete="email"
+                inputMode="email"
               />
             </div>
             {error && <p className={styles.errorText}>{error}</p>}
@@ -97,9 +93,9 @@ function Login() {
           <button
             type="submit"
             className={styles.continueBtn}
-            disabled={loading || phoneNumber.length !== 11}
+            disabled={loading || !validateEmail(email)}
           >
-            {loading ? 'جاري التحميل...' : 'إستمرار'}
+            {loading ? 'جاري الإرسال...' : 'إستمرار'}
           </button>
         </form>
 
@@ -117,12 +113,12 @@ function Login() {
 
         {/* الفوتر */}
         <p className={styles.footer}>
-          من خلال الإستمرار، يتم بك على{' '}
+          من خلال الإستمرار، توافق على{' '}
           <a href="/terms">الشروط والأحكام</a>
         </p>
 
         <p className={styles.helpText}>
-          تحتاج إلى مساعدة؟ تواصل معنا على
+          تحتاج إلى مساعدة؟ تواصل معنا
         </p>
 
       </div>

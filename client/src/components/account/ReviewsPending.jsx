@@ -52,7 +52,7 @@ const ReviewsPending = () => {
   const fetchUserComments = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/api/comments/user/${currentUser._id}`);
+      const res = await fetch(`/api/comments/user/${currentUser._id}`);
       if (!res.ok) throw new Error('فشل تحميل التعليقات');
       const data = await res.json();
       setComments(data.comments || data || []);
@@ -68,7 +68,7 @@ const ReviewsPending = () => {
     if (!window.confirm('هل تريد حذف هذا التعليق؟')) return;
     try {
       setDeletingId(commentId);
-      const res = await fetch(`http://localhost:5000/api/comments/single/${commentId}`, {
+      const res = await fetch(`/api/comments/single/${commentId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id }),
@@ -85,7 +85,7 @@ const ReviewsPending = () => {
   const handleEdit = async (commentId) => {
     if (editText.trim() === '') { alert('التعليق لا يمكن أن يكون فارغاً'); return; }
     try {
-      const res = await fetch(`http://localhost:5000/api/comments/single/${commentId}`, {
+      const res = await fetch(`/api/comments/single/${commentId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id, text: editText, rating: editRating }),

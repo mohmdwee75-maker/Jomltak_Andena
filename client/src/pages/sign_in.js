@@ -18,17 +18,33 @@ const validateEmail = (value) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 };
 
-// mode: 'user' | 'admin' | 'supplier'
-function SignIn() {
-const location = useLocation();
+// user mode: accepts email (customers) OR phone (suppliers)
+const validateUserIdentifier = (value) => {
+  return validateEmail(value) || validatePhone(value);
+};
 
-  const [mode, setMode]               = useState('user');
-  const [identifier, setIdentifier]   = useState('');
-  const [password, setPassword]       = useState('');
+const getUserIdentifierHint = (identifier, touched) => {
+  if (!identifier || !touched) return null;
+  if (validateEmail(identifier)) return { text: 'إيميل صحيح ✓', type: 'success' };
+  if (validatePhone(identifier)) return { text: 'رقم صحيح ✓ (للموردين)', type: 'success' };
+  if (identifier.includes('@'))
+    return { text: 'أدخل إيميل صحيح — مثال: name@gmail.com', type: 'warning' };
+  if (/^\d+$/.test(identifier))
+    return { text: `رقم غير مكتمل — الرقم 11 خانة يبدأ بـ 0`, type: 'warning' };
+  return { text: 'أدخل بريدك الإلكتروني أو رقم هاتفك (للموردين)', type: 'warning' };
+};
+
+// mode: 'user' | 'admin'
+function SignIn() {
+  const location = useLocation();
+
+  const [mode, setMode] = useState('user');
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading]         = useState(false);
-  const [error, setError]             = useState('');
-  const [touched, setTouched]         = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [touched, setTouched] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,7 +59,7 @@ const location = useLocation();
   // ─── Validation ────────────────────────────────────────────────────────
   const identifierValid = mode === 'admin'
     ? validateEmail(identifier)    // admin بس بيستخدم إيميل
-    : validatePhone(identifier);   // user و supplier بيستخدموا تليفون
+    : validateUserIdentifier(identifier);  // user: email (عملاء) أو phone (موردين)
 
   const isFormValid = identifierValid && password.length >= 6;
 
@@ -53,8 +69,13 @@ const location = useLocation();
     if (mode === 'admin') {
       setIdentifier(val);
     } else {
-      const numeric = val.replace(/\D/g, '');
-      if (numeric.length <= 11) setIdentifier(numeric);
+      // لو رقم → اسمح بأرقام بس
+      if (/^\d*$/.test(val)) {
+        if (val.length <= 11) setIdentifier(val);
+      } else {
+        // لو إيميل → اسمح بأي نص
+        setIdentifier(val);
+      }
     }
     if (val.length === 0) setTouched(false);
     setError('');
@@ -63,16 +84,11 @@ const location = useLocation();
   // ─── Hint ──────────────────────────────────────────────────────────────
   const getHint = () => {
     if (!identifier || !touched) return null;
-    if (identifierValid) {
-      return { text: mode === 'admin' ? 'إيميل صحيح ✓' : 'رقم صحيح ✓', type: 'success' };
-    }
     if (mode === 'admin') {
+      if (identifierValid) return { text: 'إيميل صحيح ✓', type: 'success' };
       return { text: 'أدخل إيميل صحيح — مثال: name@email.com', type: 'warning' };
     }
-    if (!identifier.startsWith('0')) {
-      return { text: 'الرقم لازم يبدأ بـ 0 — مثال: 01012345678', type: 'warning' };
-    }
-    return { text: `باقي ${11 - identifier.length} أرقام`, type: 'warning' };
+    return getUserIdentifierHint(identifier, touched);
   };
 
   const hint = getHint();
@@ -89,20 +105,22 @@ const location = useLocation();
       let url, body;
 
       if (mode === 'admin') {
-        url  = 'http://localhost:5000/api/admin/login';
+        url = '/api/admin/login';
         body = { email: identifier.trim(), password };
-      } else if (mode === 'supplier') {
-        url  = 'http://localhost:5000/api/supplier/login';
-        body = { phoneNumber: formatEgyptianPhone(identifier), password };
       } else {
-        url  = 'http://localhost:5000/signin';
-        body = { phoneNumber: formatEgyptianPhone(identifier), password };
+        url = '/signin';
+        // العملاء بيدخلوا إيميل، الموردين بيدخلوا رقم هاتف
+        const isPhone = validatePhone(identifier);
+        body = {
+          identifier: isPhone ? formatEgyptianPhone(identifier) : identifier.trim(),
+          password
+        };
       }
 
       const response = await fetch(url, {
-        method:  'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(body),
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
@@ -129,13 +147,11 @@ const location = useLocation();
         localStorage.setItem('role', data.user?.role || mode);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        if (mode === 'supplier') {
-          const redirectTo = location.state?.from || '/';
-          navigate(redirectTo);
-        } else if (mode === 'admin') {
+        if (mode === 'admin') {
           const redirectTo = location.state?.from || '/';
           navigate(redirectTo);
         } else {
+          // If response user role is supplier, they'll act as supplier normally
           const redirectTo = location.state?.from || '/';
           navigate(redirectTo);
         }
@@ -172,13 +188,6 @@ const location = useLocation();
           </button>
           <button
             type="button"
-            className={`${styles.modeBtn} ${mode === 'supplier' ? styles.modeBtnActive : ''}`}
-            onClick={() => handleModeToggle('supplier')}
-          >
-            🏭 مورد
-          </button>
-          <button
-            type="button"
             className={`${styles.modeBtn} ${mode === 'admin' ? styles.modeBtnActive : ''}`}
             onClick={() => handleModeToggle('admin')}
           >
@@ -189,28 +198,29 @@ const location = useLocation();
         <p className={styles.subtitle}>
           {mode === 'admin'
             ? 'أدخل البريد الإلكتروني وكلمة المرور'
-            : 'أدخل رقم هاتفك وكلمة المرور للدخول إلى حسابك'}
+            : 'أدخل بريدك الإلكتروني وكلمة المرور '
+          }
         </p>
 
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
 
           <div className={styles.inputGroup}>
             <label className={styles.label}>
-              {mode === 'admin' ? 'البريد الإلكتروني*' : 'رقم الهاتف*'}
+              {mode === 'admin' ? 'البريد الإلكتروني*' : 'البريد الإلكتروني*'}
             </label>
             <div className={styles.phoneInput}>
               {mode !== 'admin' && (
-                <span className={styles.countryCode}>+20 🇪🇬</span>
+                <span className={styles.countryCode}>📧</span>
               )}
               <input
                 type="text"
                 value={identifier}
                 onChange={handleIdentifierChange}
                 onBlur={() => identifier.length > 0 && setTouched(true)}
-                placeholder={mode === 'admin' ? 'example@email.com' : '01012345678'}
+                placeholder={mode === 'admin' ? 'admin@email.com' : 'example@gmail.com'}
                 className={styles.input}
                 autoComplete="username"
-                inputMode={mode === 'admin' ? 'email' : 'numeric'}
+                inputMode="email"
                 required
               />
             </div>
@@ -272,7 +282,6 @@ const location = useLocation();
             {loading ? (
               <><span className={styles.spinner} aria-hidden="true" /> جاري تسجيل الدخول...</>
             ) : mode === 'user' ? 'تسجيل الدخول'
-              : mode === 'supplier' ? 'دخول المورد'
               : 'دخول المسؤول'}
           </button>
         </form>

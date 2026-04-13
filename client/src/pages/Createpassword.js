@@ -38,7 +38,17 @@ const CreatePassword = ({ Flage_maping: propFlag = 0 }) => {
   const [success, setSuccess] = useState('');
 
   const navigate = useNavigate();
-  const phoneNumber = '+20 12 81079916';
+
+  // استخرج الإيميل من الـ reg_token
+  const getEmailFromToken = () => {
+    try {
+      const token = localStorage.getItem('reg_token');
+      if (!token) return '';
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.email || '';
+    } catch { return ''; }
+  };
+  const userEmail = getEmailFromToken();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +69,7 @@ const CreatePassword = ({ Flage_maping: propFlag = 0 }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('reg_token');
-      const response = await fetch('http://localhost:5000/save_account_details', {
+      const response = await fetch('/save_account_details', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +119,7 @@ const CreatePassword = ({ Flage_maping: propFlag = 0 }) => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/signin'); return; }
 
-      const response = await fetch('http://localhost:5000/api/user/change-password', {
+      const response = await fetch('/api/user/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -264,7 +274,7 @@ const CreatePassword = ({ Flage_maping: propFlag = 0 }) => {
 
         <form onSubmit={handleSubmitCreate} className={styles.form}>
           <div className={styles.phoneDisplay}>
-            <span className={styles.phoneNumber}>{phoneNumber}</span>
+            <span className={styles.phoneNumber}>📧 {userEmail}</span>
             <button type="button" onClick={() => navigate('/login')} className={styles.editBtn}>
               تعديل
             </button>

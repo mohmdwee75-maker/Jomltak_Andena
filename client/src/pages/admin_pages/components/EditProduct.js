@@ -1,7 +1,7 @@
 // src/pages/admin/components/EditProduct.js
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL || '';
 
 export default function EditProduct({ productId, setView }) {
   const fileInputRef = useRef(null);

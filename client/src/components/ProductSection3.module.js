@@ -52,7 +52,7 @@ const ProductsPage = ({
       setLoadingProducts(true);
       try {
         const res = await fetch(
-          `http://localhost:5000/api/products?page=${currentPage}&limit=${LIMIT}`
+          `/api/products?page=${currentPage}&limit=${LIMIT}`
         );
         const data = await res.json();
         setAllProducts(data.products);
@@ -96,7 +96,7 @@ const ProductsPage = ({
     const token = localStorage.getItem("token");
     if (!token) { alert("سجل دخولك الأول عشان تضيف للمفضلة"); return; }
     try {
-      const res = await fetch("http://localhost:5000/api/wishlist/add", {
+      const res = await fetch("/api/wishlist/add", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ productId })

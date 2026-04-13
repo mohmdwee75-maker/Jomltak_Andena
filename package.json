@@ -2,7 +2,9 @@
   "name": "jomltak-andena",
   "scripts": {
     "start": "cd server && node server.js",
-    "build": "cd server && npm install"
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm start"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

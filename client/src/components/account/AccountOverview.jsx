@@ -176,7 +176,7 @@ const AvatarUpload = ({ currentAvatar = null, onSave }) => {
         const formData = new FormData();
         formData.append('avatar', blob, 'avatar.jpg');
 
-        const response = await fetch('http://localhost:5000/api/user/avatar', {
+        const response = await fetch('/api/user/avatar', {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
@@ -262,7 +262,7 @@ const AccountOverview = () => {
       try {
         const token = localStorage.getItem('token');
         if (!token) return;
-        const res = await fetch('http://localhost:5000/api/user/profile', {
+        const res = await fetch('/api/user/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();

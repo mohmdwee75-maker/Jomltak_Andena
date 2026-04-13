@@ -1,7 +1,7 @@
 // src/pages/admin/components/AddProduct.js
 import React, { useState, useRef, useCallback } from 'react';
 
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL || '';
 
 const INITIAL_FORM = {
   name: '', description: '', price: '', oldPrice: '',

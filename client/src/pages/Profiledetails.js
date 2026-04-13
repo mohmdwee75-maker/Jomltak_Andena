@@ -31,7 +31,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
   const Flage_maping = Number(searchParams.get('Flage_maping') ?? propFlag);
 
   const [formData, setFormData] = useState({
-    firstName: '', lastName: '', birthDate: '', city: ''
+    firstName: '', lastName: '', birthDate: '', city: '', phone: ''
   });
   const [originalData, setOriginalData] = useState(null); // نسخة أصلية للـ cancel
   const [isEditing, setIsEditing] = useState(false); // وضع التعديل
@@ -51,7 +51,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
         const token = localStorage.getItem('token');
         if (!token) { navigate('/signin'); return; }
 
-        const res = await fetch('http://localhost:5000/api/user/profile', {
+        const res = await fetch('/api/user/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.status === 401) { navigate('/signin'); return; }
@@ -97,7 +97,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/signin'); return; }
 
-      const response = await fetch('http://localhost:5000/api/user/profile', {
+      const response = await fetch('/api/user/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('reg_token');
-      const response = await fetch('http://localhost:5000/login_details', {
+      const response = await fetch('/login_details', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -346,6 +346,28 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
             />
             {isAdminMode && <span className={styles.adminBadge}>Admin</span>}
           </div>
+
+          {isCreateMode && (
+            <div className={styles.inputGroup}>
+              <div className={styles.phoneInput || styles.inputGroup} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ background: '#f0f0f0', padding: '10px', borderRadius: '8px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>+20 🇪🇬</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, '');
+                    if (val.length <= 11) setFormData(prev => ({ ...prev, phone: val }));
+                  }}
+                  placeholder="رقم الهاتف *  01012345678"
+                  required
+                  className={styles.input}
+                  inputMode="numeric"
+                  maxLength={11}
+                />
+              </div>
+            </div>
+          )}
 
           {error && <p className={styles.errorText}>{error}</p>}
 

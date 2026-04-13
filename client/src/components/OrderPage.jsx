@@ -58,7 +58,7 @@ export default function OrderPage() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/orders",
+        "/api/orders",
         {
           items: items.map(i => ({ productId: i.productId || i.id, quantity: i.quantity })),
           deliveryInfo: {

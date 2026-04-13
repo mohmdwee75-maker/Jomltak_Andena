@@ -136,7 +136,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/products/${id}`);
+        const response = await fetch(`/api/products/${id}`);
         const data = await response.json();
 
         setProductData({
@@ -180,7 +180,7 @@ const ProductPage = () => {
   const fetchComments = async (pageNum = 1, reset = false) => {
     try {
       setCommentsLoading(true);
-      const res = await fetch(`http://localhost:5000/api/comments/${id}?page=${pageNum}&limit=8`);
+      const res = await fetch(`/api/comments/${id}?page=${pageNum}&limit=8`);
       const data = await res.json();
 
       setComments(prev => reset ? data.comments : [...prev, ...data.comments]);
@@ -208,7 +208,7 @@ const ProductPage = () => {
 
     try {
       setSubmitting(true);
-      const res = await fetch(`http://localhost:5000/api/comments/${id}`, {
+      const res = await fetch(`/api/comments/${id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id, text: comment, rating }),
@@ -231,7 +231,7 @@ const ProductPage = () => {
   const handleDeleteComment = async (commentId) => {
     if (!window.confirm('هل تريد حذف هذا التعليق؟')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/comments/single/${commentId}`, {
+      const res = await fetch(`/api/comments/single/${commentId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id }),
@@ -248,7 +248,7 @@ const ProductPage = () => {
   const handleEditComment = async (commentId) => {
     if (editText.trim() === '') { alert('التعليق لا يمكن أن يكون فارغاً'); return; }
     try {
-      const res = await fetch(`http://localhost:5000/api/comments/single/${commentId}`, {
+      const res = await fetch(`/api/comments/single/${commentId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUser._id, text: editText, rating: editRating }),
@@ -410,7 +410,7 @@ const ProductPage = () => {
                 const token = localStorage.getItem('token');
                 if (!token) { alert('سجل دخولك الأول عشان تضيف للمفضلة'); return; }
                 try {
-                  const res = await fetch('http://localhost:5000/api/wishlist/add', {
+                  const res = await fetch('/api/wishlist/add', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ productId: id })

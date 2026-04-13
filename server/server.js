@@ -1,10 +1,13 @@
 require('dotenv').config();
 const express = require("express");
+const path = require("path");              // ← لخدمة React build
 const http = require("http");          // ← جديد
 const { Server } = require("socket.io");   // ← جديد
 const mongoose = require("mongoose");
+const nodemailer = require('nodemailer');
 const Admin = require("./models/Admin");
 const Customer = require("./models/Customer");
+const Supplier = require("./models/Supplier");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -24,7 +27,7 @@ app.use(require('helmet')());
 // ── Socket.io ──────────────────────────────────────────
 const io = new Server(server, {
   cors: {
-    origin: process.env.ALLOWED_ORIGIN || 'http://localhost:3000',
+    origin: process.env.ALLOWED_ORIGIN || '*',
     methods: ['GET', 'POST'],
     credentials: true
   }
@@ -105,7 +108,7 @@ io.on('connection', (socket) => {
 // ️للتفعيل Helmet لحماية HTTP Headers:
 //   npm install helmet  ثم  app.use(require('helmet')())
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN,
+  origin: process.env.ALLOWED_ORIGIN || '*',
   credentials: true
 }));
 // ✅ حد حجم الـ JSON body — حماية من DoS
@@ -149,52 +152,109 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// ── Email Transporter ──────────────────────────────────────
+const emailTransporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+const sendOtpEmail = async (email, otp) => {
+  await emailTransporter.sendMail({
+    from: `"جملتك عندنا" <${process.env.EMAIL_USER}>`,
+    to: email,
+    subject: 'رمز التحقق - جملتك عندنا',
+    html: `
+      <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 500px; margin: auto;
+        background: #f9f9f9; border-radius: 12px; padding: 30px; text-align: center;">
+        <h2 style="color: #333;">رمز التحقق الخاص بك</h2>
+        <p style="color: #555;">أدخل الرمز التالي لإتمام التسجيل:</p>
+        <div style="background: #fff; border: 2px dashed #4CAF50; border-radius: 10px;
+          padding: 20px; margin: 20px 0;">
+          <h1 style="letter-spacing: 15px; color: #4CAF50; font-size: 40px; margin: 0;">${otp}</h1>
+        </div>
+        <p style="color: #888; font-size: 13px;">⏳ ينتهي صلاحية الرمز بعد 5 دقائق</p>
+        <p style="color: #aaa; font-size: 12px;">إذا لم تطلب هذا الرمز، تجاهل هذا البريد</p>
+      </div>`
+  });
+};
+
 // ── OTP Routes ──────────────────────────────────────────
 const otpStore = {};
+const validateEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v?.trim());
 
 app.post("/send-otp", otpLimiter, async (req, res) => {
-  const { phoneNumber } = req.body;
-  const existingUser = await Customer.findOne({ Phone: phoneNumber });
-  if (existingUser) return res.status(400).json({ message: "هذا الرقم مسجل بالفعل" });
+  const { email } = req.body;
+  if (!validateEmail(email))
+    return res.status(400).json({ message: "البريد الإلكتروني غير صحيح" });
+
+  const existingCustomer = await Customer.findOne({ email: email.trim() });
+  if (existingCustomer) return res.status(400).json({ message: "هذا البريد مسجل بالفعل" });
+
+  const existingSupplier = await Supplier.findOne({ email: email.trim() });
+  if (existingSupplier) return res.status(400).json({ message: "هذا البريد مسجل بالفعل كمورد" });
+
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
-  otpStore[phoneNumber] = { code: otp, expiresAt: Date.now() + 5 * 60 * 1000 };
-  // ⚠️ TODO: احذف السطر ده لما تربط SMS — مؤقت للتطوير فقط
-  console.log(`[DEV] OTP for ${phoneNumber}: ${otp}`);
-  res.json({ message: "تم إرسال الكود بنجاح" });
+  otpStore[email.trim()] = { code: otp, expiresAt: Date.now() + 5 * 60 * 1000 };
+
+  try {
+    await sendOtpEmail(email.trim(), otp);
+    res.json({ message: "تم إرسال الكود إلى بريدك الإلكتروني" });
+  } catch (err) {
+    console.error('Email send error:', err.message);
+    res.status(500).json({ message: "فشل إرسال البريد الإلكتروني، تأكد من إعدادات الإيميل" });
+  }
 });
 
 app.post("/verify-otp", async (req, res) => {
-  const { phoneNumber, otp } = req.body;
-  const stored = otpStore[phoneNumber];
-  if (!stored) return res.status(400).json({ message: "لم يتم إرسال كود لهذا الرقم" });
+  const { email, otp } = req.body;
+  const stored = otpStore[email?.trim()];
+  if (!stored) return res.status(400).json({ message: "لم يتم إرسال كود لهذا البريد" });
   if (Date.now() > stored.expiresAt) {
-    delete otpStore[phoneNumber];
+    delete otpStore[email.trim()];
     return res.status(400).json({ message: "انتهت صلاحية الكود" });
   }
   if (stored.code !== otp) return res.status(400).json({ message: "الكود غير صحيح" });
-  delete otpStore[phoneNumber];
-  const token = jwt.sign({ phoneNumber }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  delete otpStore[email.trim()];
+  const token = jwt.sign({ email: email.trim() }, process.env.JWT_SECRET, { expiresIn: '1h' });
   res.json({ message: "تم التحقق بنجاح", token });
 });
 
 app.post("/resend-otp", otpLimiter, async (req, res) => {
-  const { phoneNumber } = req.body;
-  // ✅ تحقق إن الرقم في مرحلة تسجيل فعلاً (otpStore) أو مش مسجل بعد
-  const alreadyRegistered = await Customer.findOne({ Phone: phoneNumber });
-  if (alreadyRegistered) return res.status(400).json({ message: "هذا الرقم مسجل بالفعل" });
+  const { email } = req.body;
+  if (!validateEmail(email))
+    return res.status(400).json({ message: "البريد الإلكتروني غير صحيح" });
+
+  const existingCustomer = await Customer.findOne({ email: email.trim() });
+  if (existingCustomer) return res.status(400).json({ message: "هذا البريد مسجل بالفعل" });
 
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
-  otpStore[phoneNumber] = { code: otp, expiresAt: Date.now() + 5 * 60 * 1000 };
-  // ⚠️ TODO: احذف السطر ده لما تربط SMS — مؤقت للتطوير فقط
-  res.json({ message: "تم إعادة إرسال الكود بنجاح" });
+  otpStore[email.trim()] = { code: otp, expiresAt: Date.now() + 5 * 60 * 1000 };
+
+  try {
+    await sendOtpEmail(email.trim(), otp);
+    res.json({ message: "تم إعادة إرسال الكود بنجاح" });
+  } catch (err) {
+    res.status(500).json({ message: "فشل إرسال البريد الإلكتروني" });
+  }
 });
 
 
 // ── Auth Routes ─────────────────────────────────────────
 app.post("/login_details", verifyToken, async (req, res) => {
-  const { firstName, lastName, birthDate, city } = req.body;
+  const { firstName, lastName, birthDate, city, phone } = req.body;
+
+  // ✅ تحقق من رقم الهاتف
+  if (phone) {
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length !== 11 || !digits.startsWith('0'))
+      return res.status(400).json({ message: 'رقم الهاتف يجب أن يكون 11 رقماً ويبدأ بـ 0' });
+  }
+
   const newToken = jwt.sign(
-    { phoneNumber: req.user.phoneNumber, firstName, lastName, birthDate, city },
+    { email: req.user.email, firstName, lastName, birthDate, city, phone },
     process.env.JWT_SECRET, { expiresIn: '1h' }
   );
   res.json({ message: "تم الحفظ بنجاح", token: newToken });
@@ -202,7 +262,7 @@ app.post("/login_details", verifyToken, async (req, res) => {
 
 app.post("/save_account_details", verifyToken, async (req, res) => {
   try {
-    const { phoneNumber, firstName, lastName, birthDate, city } = req.user;
+    const { email, firstName, lastName, birthDate, city, phone } = req.user;
 
     // ✅ تحقق من قوة الباسورد عند إنشاء الحساب
     const password = req.body.password;
@@ -216,25 +276,31 @@ app.post("/save_account_details", verifyToken, async (req, res) => {
     const newID = lastCustomer ? lastCustomer.user_ID + 1 : 1;
     const newCustomer = new Customer({
       user_ID: newID, F_name: firstName, L_name: lastName,
-      Birth_date: birthDate, city, Phone: phoneNumber,
-      User_name: phoneNumber, Pass: hashedPassword,
+      Birth_date: birthDate, city, Phone: phone, email,
+      User_name: email, Pass: hashedPassword,
       notes: "", order_count: 0, image: ""
     });
     await newCustomer.save();
     const finalToken = jwt.sign(
-      { phoneNumber, userId: newCustomer._id, role: 'customer', firstName },
+      { email, userId: newCustomer._id, role: 'customer', firstName },
       process.env.JWT_SECRET, { expiresIn: '7d' }
     );
     res.json({ message: "تم إنشاء الحساب بنجاح", token: finalToken });
   } catch (err) {
+    console.error('save_account_details error:', err.message);
     res.status(500).json({ message: 'حدث خطأ في الخادم' });
   }
 });
 
 app.post("/signin", loginLimiter, async (req, res) => {
-  const { phoneNumber, password } = req.body;
+  // identifier يمكن أن يكون email (للعملاء والأدمن) أو رقم هاتف (للموردين)
+  const { identifier, password } = req.body;
+  if (!identifier || !password)
+    return res.status(400).json({ message: "جميع الحقول مطلوبة" });
+
   try {
-    const admin = await Admin.findOne({ email: phoneNumber });
+    // ── Check Admin (by email) ──
+    const admin = await Admin.findOne({ email: identifier.trim() });
     if (admin) {
       const isMatch = await bcrypt.compare(password, admin.password);
       if (isMatch) {
@@ -249,7 +315,37 @@ app.post("/signin", loginLimiter, async (req, res) => {
       }
     }
 
-    const customer = await Customer.findOne({ Phone: phoneNumber });
+    // ── Check Supplier (by phone) ──
+    const supplier = await Supplier.findOne({ phone: identifier.trim() });
+    if (supplier) {
+      if (!supplier.isActive) {
+        return res.status(403).json({ message: 'حساب المورد الخاص بك معطل، تواصل مع الإدارة' });
+      }
+      const isMatch = await bcrypt.compare(password, supplier.password);
+      if (!isMatch) return res.status(400).json({ message: "البيانات غير صحيحة" });
+
+      const token = jwt.sign(
+        { userId: supplier._id, supplierId: supplier.supplierId, name: supplier.name, role: 'supplier' },
+        process.env.JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+
+      return res.json({
+        message: "تم تسجيل الدخول بنجاح",
+        token,
+        user: {
+          id: supplier.supplierId,
+          name: supplier.name,
+          phone: supplier.phone,
+          company: supplier.company,
+          image: supplier.image,
+          role: 'supplier',
+        }
+      });
+    }
+
+    // ── Check Customer (by email) ──
+    const customer = await Customer.findOne({ email: identifier.trim() });
     if (!customer) return res.status(400).json({ message: "البيانات غير صحيحة" });
 
     const isMatch = await bcrypt.compare(password, customer.Pass);
@@ -269,7 +365,7 @@ app.post("/signin", loginLimiter, async (req, res) => {
     // ──────────────────────────────────────────────────────────────────
 
     const token = jwt.sign(
-      { phoneNumber, userId: customer._id, role: 'customer', firstName: customer.F_name },
+      { email: customer.email, userId: customer._id, role: 'customer', firstName: customer.F_name },
       process.env.JWT_SECRET, { expiresIn: '7d' }
     );
 
@@ -278,10 +374,10 @@ app.post("/signin", loginLimiter, async (req, res) => {
       user: {
         id: customer._id,
         firstName: customer.F_name,
-        phoneNumber: customer.Phone,
+        email: customer.email,
         role: 'customer',
-        isBanned: customer.isBanned,         // ✅ مضاف
-        bannedUntil: customer.bannedUntil    // ✅ مضاف
+        isBanned: customer.isBanned,
+        bannedUntil: customer.bannedUntil
       }
     });
 
@@ -289,6 +385,7 @@ app.post("/signin", loginLimiter, async (req, res) => {
     return res.status(500).json({ message: "حدث خطأ في الخادم" });
   }
 });
+
 // ── Wishlist Routes ─────────────────────────────────────
 app.post("/api/wishlist/add", verifyToken, async (req, res) => {
   try {
@@ -502,8 +599,17 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/financial', financialRoutes);
 app.use('/api/supplier', supplierRoutes);
+
+// ── Serve React Build (Production) ──────────────────────
+const clientBuild = path.join(__dirname, '..', 'client', 'build');
+app.use(express.static(clientBuild));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuild, 'index.html'));
+});
+
 // ── Start Server ────────────────────────────────────────
+const PORT = process.env.PORT || 5000;
 // ⚠️ مهم: server.listen مش app.listen عشان Socket.io يشتغل
-server.listen(5000, '0.0.0.0', () => {
-  console.log("Server running on port 5000 🚀");
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT} 🚀`);
 });

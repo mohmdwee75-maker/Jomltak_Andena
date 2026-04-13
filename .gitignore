@@ -1,4 +1,16 @@
+# Dependencies
 node_modules/
+
+# Environment variables (secrets)
 .env
-.env.*
+server/.env
+
+# Allow client dev env (no secrets)
+!client/.env.development
+
+# Build artifacts
 *.zip
+
+# System
+.DS_Store
+Thumbs.db

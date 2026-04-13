@@ -268,7 +268,7 @@ const HeroSection = ({ showExtra = true }) => {
     }
     setLoading(true);
     try {
-      const res  = await fetch(`http://localhost:5000/api/products/search?q=${encodeURIComponent(value)}&limit=6`);
+      const res  = await fetch(`/api/products/search?q=${encodeURIComponent(value)}&limit=6`);
       const data = await res.json();
       const products = data.products || [];
       setSuggestions(products);

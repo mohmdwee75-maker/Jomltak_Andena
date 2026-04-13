@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import OrderCard from './OrderCard';
 import './Orders.css';
 
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL || '';
 
 // ── Reject Modal ────────────────────────────────────────────────
 const RejectModal = ({ order, onConfirm, onCancel, loading }) => {

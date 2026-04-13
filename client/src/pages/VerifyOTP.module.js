@@ -12,7 +12,7 @@ const VerifyOTP = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const phoneNumber = location.state?.phoneNumber || '+20 12 81079916';
+  const email = location.state?.email || '';
   
   // Timer لإعادة الإرسال
   useEffect(() => {
@@ -79,13 +79,13 @@ const handleChange = (index, value) => {
 
     try {
       // هنا هتبعت الكود للـ Backend
-     const response = await fetch('http://localhost:5000/verify-otp', {
+     const response = await fetch('/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          phoneNumber,
+          email,
           otp: otpCode
         })
       });
@@ -113,12 +113,12 @@ const handleChange = (index, value) => {
     setResendTimer(60);
     // هنا هتبعت طلب لإعادة إرسال الكود
     try {
-      await fetch('http://localhost:5000/resend-otp', {
+      await fetch('/resend-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ phoneNumber })
+        body: JSON.stringify({ email })
       });
     } catch (err) {
       console.error('Error:', err);
@@ -135,11 +135,11 @@ const handleChange = (index, value) => {
 
 
         {/* العنوان */}
-        <h1 className={styles.title}>أكد على رقم هاتفك أو جوالك</h1>
+        <h1 className={styles.title}>تحقق من بريدك الإلكتروني</h1>
         <p className={styles.subtitle}>
-          نرسل رمز تحقق إلى:
+          تم إرسال رمز التحقق إلى:
         </p>
-        <p className={styles.phoneNumber}>{phoneNumber}</p>
+        <p className={styles.phoneNumber}>📧 {email}</p>
 
         {/* حقول الـ OTP */}
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -175,7 +175,7 @@ const handleChange = (index, value) => {
             className={styles.submitBtn}
             disabled={loading || otp.join('').length !== 4}
           >
-            {loading ? 'جاري التحقق...' : 'إرسل رسالة نصية'}
+            {loading ? 'جاري التحقق...' : 'تحقق من الكود'}
           </button>
         </form>
 

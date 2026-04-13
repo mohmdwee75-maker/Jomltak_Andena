@@ -1,7 +1,7 @@
 // src/pages/admin/components/Customers.js
 import React, { useEffect, useState } from 'react';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL || '';
 
 function getToken() {
     return localStorage.getItem('token') || '';

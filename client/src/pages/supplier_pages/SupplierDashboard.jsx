@@ -5,7 +5,7 @@ import HeroSection from '../../components/HeroSection.module';
 import Footer from '../../components/Footer.module';
 import ScrollToTop from '../../components/ScrollToTop.module';
 
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL || '';
 const token = () => localStorage.getItem('token');
 
 // ══════════════════════════════════════════════════

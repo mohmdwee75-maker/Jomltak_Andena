@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL || '';
 const fmt = (n) => Number(n || 0).toLocaleString('ar-EG') + ' جنيه';
 const fmtDate = (d) => new Date(d).toLocaleDateString('ar-EG',
   { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });

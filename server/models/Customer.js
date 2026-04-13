@@ -5,6 +5,7 @@ const customerSchema = new mongoose.Schema({
     user_ID: { type: Number, unique: true },
     F_name: String,
     L_name: String,
+    email: { type: String, unique: true, sparse: true },
     Phone: String,
     User_name: String,
     Pass: String,
