@@ -603,7 +603,7 @@ app.use('/api/supplier', supplierRoutes);
 // ── Serve React Build (Production) ──────────────────────
 const clientBuild = path.join(__dirname, '..', 'client', 'build');
 app.use(express.static(clientBuild));
-app.get('*', (req, res) => {
+app.get('{*path}', (req, res) => {
   res.sendFile(path.join(clientBuild, 'index.html'));
 });
 
