@@ -12,8 +12,8 @@
 .env
 .env.*
 
-# production
-/build
+# production - build tracked for deployment
+# /build
 
 # misc
 .DS_Store
