@@ -79,7 +79,7 @@ const handleChange = (index, value) => {
 
     try {
       // هنا هتبعت الكود للـ Backend
-     const response = await fetch('https://jomltak-andena-server-production.up.railway.app' + '/verify-otp', {
+     const response = await fetch('https://jomltak-andena-server-production.up.railway.app/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const handleChange = (index, value) => {
     setResendTimer(60);
     // هنا هتبعت طلب لإعادة إرسال الكود
     try {
-      await fetch('https://jomltak-andena-server-production.up.railway.app' + '/resend-otp', {
+      await fetch('https://jomltak-andena-server-production.up.railway.app/resend-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

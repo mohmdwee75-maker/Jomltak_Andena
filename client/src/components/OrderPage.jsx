@@ -58,7 +58,7 @@ export default function OrderPage() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        'https://jomltak-andena-server-production.up.railway.app' + "/api/orders",
+        'https://jomltak-andena-server-production.up.railway.app/api/orders',
         {
           items: items.map(i => ({ productId: i.productId || i.id, quantity: i.quantity })),
           deliveryInfo: {

@@ -99,7 +99,7 @@ const ProductsPage = ({
     const token = localStorage.getItem("token");
     if (!token) { alert("سجل دخولك الأول عشان تضيف للمفضلة"); return; }
     try {
-      const res = await fetch('https://jomltak-andena-server-production.up.railway.app' + "/api/wishlist/add", {
+      const res = await fetch('https://jomltak-andena-server-production.up.railway.app/api/wishlist/add', {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ productId })
