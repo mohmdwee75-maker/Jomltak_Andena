@@ -69,7 +69,7 @@ const CreatePassword = ({ Flage_maping: propFlag = 0 }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('reg_token');
-      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/save_account_details', {
+      const response = await fetch('https://jomltak-andena-server-production.up.railway.app' + '/save_account_details', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const CreatePassword = ({ Flage_maping: propFlag = 0 }) => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/signin'); return; }
 
-      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/change-password', {
+      const response = await fetch('https://jomltak-andena-server-production.up.railway.app' + '/api/user/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

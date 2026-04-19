@@ -105,10 +105,10 @@ function SignIn() {
       let url, body;
 
       if (mode === 'admin') {
-        url = (process.env.REACT_APP_API_URL || '') + '/api/admin/login';
+        url = 'https://jomltak-andena-server-production.up.railway.app' + '/api/admin/login';
         body = { email: identifier.trim(), password };
       } else {
-        url = (process.env.REACT_APP_API_URL || '') + '/signin';
+        url = 'https://jomltak-andena-server-production.up.railway.app' + '/signin';
         // العملاء بيدخلوا إيميل، الموردين بيدخلوا رقم هاتف
         const isPhone = validatePhone(identifier);
         body = {
@@ -265,7 +265,7 @@ function SignIn() {
             </div>
             {mode !== 'admin' && (
               <div className={styles.forgotPassword}>
-                <a href=(process.env.REACT_APP_API_URL || "") + "/forgot-password">نسيت كلمة المرور؟</a>
+                <a href='https://jomltak-andena-server-production.up.railway.app' + "/forgot-password">نسيت كلمة المرور؟</a>
               </div>
             )}
           </div>

@@ -24,7 +24,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/send-otp', {
+      const response = await fetch('https://jomltak-andena-server-production.up.railway.app' + '/send-otp', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ email: email.trim() }),

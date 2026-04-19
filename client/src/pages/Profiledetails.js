@@ -51,7 +51,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
         const token = localStorage.getItem('token');
         if (!token) { navigate('/signin'); return; }
 
-        const res = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/profile', {
+        const res = await fetch('https://jomltak-andena-server-production.up.railway.app' + '/api/user/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.status === 401) { navigate('/signin'); return; }
@@ -97,7 +97,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/signin'); return; }
 
-      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/profile', {
+      const response = await fetch('https://jomltak-andena-server-production.up.railway.app' + '/api/user/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('reg_token');
-      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/login_details', {
+      const response = await fetch('https://jomltak-andena-server-production.up.railway.app' + '/login_details', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

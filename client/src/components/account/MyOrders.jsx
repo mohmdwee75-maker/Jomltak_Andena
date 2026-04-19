@@ -193,7 +193,7 @@ export default function MyOrders() {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get((process.env.REACT_APP_API_URL || '') + '/api/orders/my', {
+        const res = await axios.get('https://jomltak-andena-server-production.up.railway.app' + '/api/orders/my', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrders(res.data.orders);

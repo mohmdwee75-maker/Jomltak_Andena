@@ -7,7 +7,7 @@ import axios from 'axios';
 
 // ── تهيئة Axios لكل الطلبات ──────────────────────────────
 // هيضيف رابط السيرفر تلقائيًا لكل طلبات الـ API في الإنتاج
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || '';
+axios.defaults.baseURL = 'https://jomltak-andena-server-production.up.railway.app';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
