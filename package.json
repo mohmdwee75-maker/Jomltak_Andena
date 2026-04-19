@@ -1,7 +1,7 @@
 {
   "name": "jomltak-andena",
   "scripts": {
-    "start": "cd server && node server.js",
+    "start": "cd server && npm install && node server.js",
     "build": "cd client && npm install && npm run build && cd ../server && npm install",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm start"
