@@ -265,7 +265,7 @@ function SignIn() {
             </div>
             {mode !== 'admin' && (
               <div className={styles.forgotPassword}>
-                <a href='https://jomltak-andena-server-production.up.railway.app/forgot-password'>نسيت كلمة المرور؟</a>
+                <a href="https://jomltak-andena-server-production.up.railway.app/forgot-password">نسيت كلمة المرور؟</a>
               </div>
             )}
           </div>
