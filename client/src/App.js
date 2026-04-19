@@ -31,7 +31,7 @@ function App() {
 
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path=(process.env.REACT_APP_API_URL || "") + "/verify-otp" element={<VerifyOTP />} />
+      <Route path="/verify-otp" element={<VerifyOTP />} />
       <Route path="/create-password" element={<CreatePassword />} />
       <Route path="/profile-details" element={<ProfileDetails />} />
       <Route path="/register" element={
