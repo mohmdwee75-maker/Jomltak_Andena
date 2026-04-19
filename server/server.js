@@ -127,6 +127,9 @@ mongoose.connect(process.env.MONGO_URI, {
   });
 
 // ── Rate Limiters ────────────────────────────
+// ✅ السماح للمكتبة بمعرفة الـ IP الحقيقي وراء البروكسي (زي Railway)
+app.set('trust proxy', 1);
+
 // ✅ Rate Limit عام على كل الـ API
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, max: 200,
