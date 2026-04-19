@@ -21,6 +21,10 @@ const upload = require('./middleware/upload');
 const cloudinary = require('./config/cloudinary');
 const supplierRoutes = require('./routes/supplierRoutes'); // ← جديد
 const app = express();
+
+// ✅ السماح للمكتبة بمعرفة الـ IP الحقيقي وراء البروكسي لحل مشكلة X-Forwarded-For
+app.set('trust proxy', 1);
+
 const server = http.createServer(app);     // ← جديد
 app.use(require('helmet')());
 
