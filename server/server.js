@@ -109,7 +109,8 @@ io.on('connection', (socket) => {
 //   npm install helmet  ثم  app.use(require('helmet')())
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN || '*',
-  credentials: true
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 // ✅ حد حجم الـ JSON body — حماية من DoS
 app.use(express.json({ limit: '1mb' }));
