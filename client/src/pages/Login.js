@@ -24,7 +24,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch('/send-otp', {
+      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/send-otp', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ email: email.trim() }),
@@ -33,7 +33,7 @@ function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        navigate('/verify-otp', {
+        navigate((process.env.REACT_APP_API_URL || '') + '/verify-otp', {
           state: {
             email: email.trim(),
             from: location.state?.from,

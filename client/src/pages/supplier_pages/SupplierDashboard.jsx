@@ -433,7 +433,7 @@ export default function SupplierDashboard() {
 
   useEffect(() => {
     const role = localStorage.getItem('role');
-    if (role !== 'supplier') { navigate('/signin'); return; }
+    if (role !== 'supplier') { navigate((process.env.REACT_APP_API_URL || '') + '/signin'); return; }
 
     const fetchMe = async () => {
       try {
@@ -442,8 +442,8 @@ export default function SupplierDashboard() {
         });
         const data = await res.json();
         if (res.ok) setSupplier(data.supplier);
-        else navigate('/signin');
-      } catch { navigate('/signin'); }
+        else navigate((process.env.REACT_APP_API_URL || '') + '/signin');
+      } catch { navigate((process.env.REACT_APP_API_URL || '') + '/signin'); }
     };
     fetchMe();
   }, []);
@@ -452,7 +452,7 @@ export default function SupplierDashboard() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('user');
-    navigate('/signin');
+    navigate((process.env.REACT_APP_API_URL || '') + '/signin');
   };
 
   return (

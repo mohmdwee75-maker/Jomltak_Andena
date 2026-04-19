@@ -108,7 +108,7 @@ function SignIn() {
         url = (process.env.REACT_APP_API_URL || '') + '/api/admin/login';
         body = { email: identifier.trim(), password };
       } else {
-        url = '/signin';
+        url = (process.env.REACT_APP_API_URL || '') + '/signin';
         // العملاء بيدخلوا إيميل، الموردين بيدخلوا رقم هاتف
         const isPhone = validatePhone(identifier);
         body = {
@@ -265,7 +265,7 @@ function SignIn() {
             </div>
             {mode !== 'admin' && (
               <div className={styles.forgotPassword}>
-                <a href="/forgot-password">نسيت كلمة المرور؟</a>
+                <a href=(process.env.REACT_APP_API_URL || "") + "/forgot-password">نسيت كلمة المرور؟</a>
               </div>
             )}
           </div>

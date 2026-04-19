@@ -79,7 +79,7 @@ const handleChange = (index, value) => {
 
     try {
       // هنا هتبعت الكود للـ Backend
-     const response = await fetch('/verify-otp', {
+     const response = await fetch((process.env.REACT_APP_API_URL || '') + '/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const handleChange = (index, value) => {
     setResendTimer(60);
     // هنا هتبعت طلب لإعادة إرسال الكود
     try {
-      await fetch('/resend-otp', {
+      await fetch((process.env.REACT_APP_API_URL || '') + '/resend-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
