@@ -606,12 +606,12 @@ const clientBuild = path.join(__dirname, '..', 'client', 'build');
 
 if (fs.existsSync(clientBuild)) {
   app.use(express.static(clientBuild));
-  app.get('*', (req, res) => {
+  app.get(/.*/, (req, res) => {
     res.sendFile(path.join(clientBuild, 'index.html'));
   });
 } else {
-  // If no React build is found (e.g., deployed as API only on Render)
-  app.get('/', (req, res) => {
+  // If no React build is found (e.g., deployed as API only on Render/Railway)
+  app.get(/.*/, (req, res) => {
     res.json({ message: "Jomltak Andena API is running successfully! 🚀" });
   });
 }
