@@ -58,9 +58,9 @@ const ProductsPage = ({
           `${process.env.REACT_APP_API_URL || ''}/api/products?page=${currentPage}&limit=${LIMIT}`
         );
         const data = await res.json();
-        setAllProducts(data.products);
-        setTotalPages(data.totalPages);
-        setTotal(data.total);
+        setAllProducts(data.products || []);
+        setTotalPages(data.totalPages || 1);
+        setTotal(data.total || 0);
       } catch (err) {
         console.error('خطأ:', err);
       } finally {
@@ -71,7 +71,7 @@ const ProductsPage = ({
   }, [currentPage]);
 
   const filteredProducts = useMemo(() => {
-    let filtered = [...allProducts];
+    let filtered = [...(allProducts || [])];
     filtered = filtered.filter(p => p.price >= priceRange.min && p.price <= priceRange.max);
     if (selectedBrands.length > 0) filtered = filtered.filter(p => selectedBrands.includes(p.brand));
     if (selectedDiscount === '20') filtered = filtered.filter(p => parseInt(p.discount) >= 20);
