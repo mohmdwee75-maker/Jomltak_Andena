@@ -119,7 +119,7 @@ const CreatePassword = ({ Flage_maping: propFlag = 0 }) => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/signin'); return; }
 
-      const response = await fetch('/api/user/change-password', {
+      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

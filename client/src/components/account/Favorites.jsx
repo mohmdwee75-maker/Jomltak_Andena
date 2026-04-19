@@ -12,7 +12,7 @@ const Favorites = () => {
       if (!token) { setLoading(false); return; }
 
       try {
-        const res = await fetch("/api/wishlist", {
+        const res = await fetch((process.env.REACT_APP_API_URL || "") + "/api/wishlist", {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();
@@ -33,7 +33,7 @@ const Favorites = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("/api/wishlist/remove", {
+      const res = await fetch((process.env.REACT_APP_API_URL || "") + "/api/wishlist/remove", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

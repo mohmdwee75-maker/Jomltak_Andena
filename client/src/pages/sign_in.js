@@ -105,7 +105,7 @@ function SignIn() {
       let url, body;
 
       if (mode === 'admin') {
-        url = '/api/admin/login';
+        url = (process.env.REACT_APP_API_URL || '') + '/api/admin/login';
         body = { email: identifier.trim(), password };
       } else {
         url = '/signin';

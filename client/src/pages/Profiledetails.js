@@ -51,7 +51,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
         const token = localStorage.getItem('token');
         if (!token) { navigate('/signin'); return; }
 
-        const res = await fetch('/api/user/profile', {
+        const res = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.status === 401) { navigate('/signin'); return; }
@@ -97,7 +97,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/signin'); return; }
 
-      const response = await fetch('/api/user/profile', {
+      const response = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
