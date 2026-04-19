@@ -601,11 +601,20 @@ app.use('/api/financial', financialRoutes);
 app.use('/api/supplier', supplierRoutes);
 
 // ── Serve React Build (Production) ──────────────────────
+const fs = require('fs');
 const clientBuild = path.join(__dirname, '..', 'client', 'build');
-app.use(express.static(clientBuild));
-app.get('{*path}', (req, res) => {
-  res.sendFile(path.join(clientBuild, 'index.html'));
-});
+
+if (fs.existsSync(clientBuild)) {
+  app.use(express.static(clientBuild));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuild, 'index.html'));
+  });
+} else {
+  // If no React build is found (e.g., deployed as API only on Render)
+  app.get('/', (req, res) => {
+    res.json({ message: "Jomltak Andena API is running successfully! 🚀" });
+  });
+}
 
 // ── Start Server ────────────────────────────────────────
 const PORT = process.env.PORT || 5000;

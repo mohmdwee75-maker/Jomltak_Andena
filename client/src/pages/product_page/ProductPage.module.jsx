@@ -35,6 +35,7 @@ const ProductPage = () => {
   const [editText, setEditText] = useState('');
   const [editRating, setEditRating] = useState(0);
   const [showCartToast, setShowCartToast] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   // ─── Swipe state ──────────────────────────────────────────────────────────
   const touchStartX = useRef(null);
@@ -341,6 +342,13 @@ const ProductPage = () => {
   if (loading) return <div className="pp-loading">جاري التحميل...</div>;
   if (!productData) return <div className="pp-error">المنتج غير موجود</div>;
 
+  const WORD_LIMIT = 30;
+  const words = productData.description ? productData.description.split(" ") : [];
+  const isLong = words.length > WORD_LIMIT;
+  const displayed = expanded || !isLong
+    ? productData.description
+    : words.slice(0, WORD_LIMIT).join(" ") + "...";
+
   return (
     <div className="pp-page-wrapper">
       <div className="pp-product-container">
@@ -467,7 +475,17 @@ const ProductPage = () => {
 
           <div className="pp-product-description">
             <h3 className="pp-section-title">وصف المنتج</h3>
-            <p>{productData.description}</p>
+            <p>
+              {displayed}
+              {isLong && (
+                <button
+                  className="pp-show-more-btn"
+                  onClick={() => setExpanded(!expanded)}
+                >
+                  {expanded ? "إخفاء" : "إظهار المزيد"}
+                </button>
+              )}
+            </p>
           </div>
 
           <div className="pp-product-description">

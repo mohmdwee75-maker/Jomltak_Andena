@@ -1,21 +1,22 @@
-
 .products-page {
   display: flex;
   gap: 20px;
   padding: 20px;
-   width: 100%;
+  width: 100%;
   max-width: 1400px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   margin: 0 auto;
   direction: rtl;
   font-family: Arial, Helvetica, sans-serif;
 
 }
+
 .products-page-wrapper {
   width: 100%;
   background-color: #f8f8f8;
   padding: 40px 0;
 }
+
 /* ============= SIDEBAR ============= */
 .sidebar {
   width: 280px;
@@ -27,7 +28,7 @@
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .sidebar-title {
@@ -133,6 +134,7 @@
   border-radius: 3px;
   top: 0;
   z-index: 1;
+  max-width: 100%;
 }
 
 .slider-input {
@@ -156,7 +158,7 @@
   cursor: pointer;
   pointer-events: all;
   border: 3px solid white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 3;
 }
@@ -169,7 +171,7 @@
   cursor: pointer;
   pointer-events: all;
   border: 3px solid white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 3;
 }
@@ -261,7 +263,7 @@
   background: white;
   border: 1px solid #ddd;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   min-width: 250px;
   z-index: 10;
   overflow: hidden;
@@ -280,7 +282,7 @@
 
 .sort-option.active {
   background: #fff8f0;
-  color:#176FCA;
+  color: #176FCA;
   font-weight: bold;
 }
 
@@ -299,7 +301,7 @@
   background: white;
   border-radius: 8px;
   margin-bottom: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .tag-label {
@@ -340,7 +342,7 @@
   background: white;
   border-radius: 8px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   min-height: 50px;
 }
 
@@ -428,7 +430,7 @@
   text-align: center;
   background: #F8F8F8;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .no-results i {
@@ -463,7 +465,7 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s;
   width: 100%;
   cursor: pointer;
@@ -471,7 +473,7 @@
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .product-image-container {
@@ -483,7 +485,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  flex-shrink: 0; /* ← مهم */
+  flex-shrink: 0;
+  /* ← مهم */
 }
 
 .product-image-container img {
@@ -512,13 +515,13 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
   z-index: 2;
 }
 
 .wishlist-btn:hover {
-  background:#176FCA;
+  background: #176FCA;
   transform: scale(1.1);
 }
 
@@ -548,16 +551,22 @@
 /* Product Info */
 .product-info {
   padding: 20px;
-  display: flex; /* ← إضافة */
-  flex-direction: column; /* ← إضافة */
-  flex-grow: 1; /* ← مهم جداً - يخلي المحتوى يملأ المساحة */
+  display: flex;
+  /* ← إضافة */
+  flex-direction: column;
+  /* ← إضافة */
+  flex-grow: 1;
+  /* ← مهم جداً - يخلي المحتوى يملأ المساحة */
 }
+
 .product-name {
   font-size: 0.95rem;
   color: #333;
   margin: 0 0 12px 0;
-  height: 44px; /* ← ثابت */
-  min-height: 44px; /* ← إضافة */
+  height: 44px;
+  /* ← ثابت */
+  min-height: 44px;
+  /* ← إضافة */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -565,7 +574,8 @@
   -webkit-box-orient: vertical;
   line-height: 1.5;
   text-align: right;
-  flex-shrink: 0; /* ← منع الانكماش */
+  flex-shrink: 0;
+  /* ← منع الانكماش */
 }
 
 .product-pricing {
@@ -574,7 +584,8 @@
   gap: 12px;
   margin-bottom: 10px;
   flex-wrap: wrap;
-  flex-shrink: 0; /* ← إضافة */
+  flex-shrink: 0;
+  /* ← إضافة */
 }
 
 
@@ -595,8 +606,10 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
-  min-height: 24px; /* ← إضافة لحجز مساحة */
-  flex-shrink: 0; /* ← إضافة */
+  min-height: 24px;
+  /* ← إضافة لحجز مساحة */
+  flex-shrink: 0;
+  /* ← إضافة */
 }
 
 .stars {
@@ -624,10 +637,12 @@
   gap: 8px;
   color: #4CAF50;
   font-size: 0.85rem;
-  margin-top: auto; /* ← مهم جداً - يدفع العنصر للأسفل */
+  margin-top: auto;
+  /* ← مهم جداً - يدفع العنصر للأسفل */
   padding-top: 10px;
   border-top: 1px solid #f0f0f0;
-  min-height: 32px; /* ← إضافة */
+  min-height: 32px;
+  /* ← إضافة */
 }
 
 .free-shipping i {
@@ -662,16 +677,18 @@
   .products-page {
     flex-direction: column;
   }
-  
+
   .sidebar {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
   }
+
   .sidebar-section:has(.apply-btn) {
     display: none;
   }
+
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
@@ -683,38 +700,38 @@
   .products-page {
     padding: 15px;
   }
-  
+
   .sidebar {
     grid-template-columns: 1fr;
   }
-  
+
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-  
+
   .product-image-container {
     height: 220px;
   }
-  
+
   .product-info {
     padding: 15px;
   }
-  
+
   .product-name {
     font-size: 0.9rem;
     height: 40px;
   }
-  
+
   .current-price {
     font-size: 1.15rem;
   }
-  
+
   .categories-tags {
     flex-wrap: wrap;
     padding: 10px;
   }
-  
+
   .category-tag {
     font-size: 0.8rem;
     padding: 5px 12px;
@@ -752,15 +769,15 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
-  
+
   .product-card {
     border-radius: 8px;
   }
-  
+
   .product-image-container {
     height: 140px;
   }
-  
+
   .product-info {
     padding: 10px;
   }
@@ -790,13 +807,13 @@
   .free-shipping {
     font-size: 0.75rem;
   }
-  
+
   .content-header {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
   }
-  
+
   .sort-dropdown {
     width: 100%;
     justify-content: space-between;
@@ -854,17 +871,21 @@
 .products-grid a:hover {
   text-decoration: none;
 }
+
 .product-card {
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s;
   width: 100%;
   cursor: pointer;
-  display: flex; /* ← مهم */
-  flex-direction: column; /* ← مهم */
-  height: 100%; /* ← مهم جداً */
+  display: flex;
+  /* ← مهم */
+  flex-direction: column;
+  /* ← مهم */
+  height: 100%;
+  /* ← مهم جداً */
 }
 
 .pagination {
