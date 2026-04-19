@@ -109,8 +109,7 @@ io.on('connection', (socket) => {
 //   npm install helmet  ثم  app.use(require('helmet')())
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN || '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 // ✅ حد حجم الـ JSON body — حماية من DoS
 app.use(express.json({ limit: '1mb' }));
@@ -127,9 +126,6 @@ mongoose.connect(process.env.MONGO_URI, {
   });
 
 // ── Rate Limiters ────────────────────────────
-// ✅ السماح للمكتبة بمعرفة الـ IP الحقيقي وراء البروكسي (زي Railway)
-app.set('trust proxy', 1);
-
 // ✅ Rate Limit عام على كل الـ API
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, max: 200,

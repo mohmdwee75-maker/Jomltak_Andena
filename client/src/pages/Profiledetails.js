@@ -49,12 +49,12 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
       setFetching(true);
       try {
         const token = localStorage.getItem('token');
-        if (!token) { navigate((process.env.REACT_APP_API_URL || '') + '/signin'); return; }
+        if (!token) { navigate('/signin'); return; }
 
         const res = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        if (res.status === 401) { navigate((process.env.REACT_APP_API_URL || '') + '/signin'); return; }
+        if (res.status === 401) { navigate('/signin'); return; }
         const data = await res.json();
         if (res.ok) {
           const loaded = {
@@ -95,7 +95,7 @@ const ProfileDetails = ({ Flage_maping: propFlag = 0 }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      if (!token) { navigate((process.env.REACT_APP_API_URL || '') + '/signin'); return; }
+      if (!token) { navigate('/signin'); return; }
 
       const response = await fetch((process.env.REACT_APP_API_URL || '') + '/api/user/profile', {
         method: 'PUT',

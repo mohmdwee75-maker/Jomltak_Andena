@@ -33,7 +33,7 @@ function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        navigate((process.env.REACT_APP_API_URL || '') + '/verify-otp', {
+        navigate('/verify-otp', {
           state: {
             email: email.trim(),
             from: location.state?.from,
