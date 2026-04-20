@@ -161,7 +161,10 @@ const verifyToken = (req, res, next) => {
 
 // ── Email Transporter ──────────────────────────────────────
 const emailTransporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,   // TLS على port 587
+  family: 4,       // ✅ Force IPv4 — Railway لا يدعم IPv6 الصادر
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
